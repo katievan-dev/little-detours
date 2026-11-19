@@ -45,7 +45,6 @@ button:focus-visible,input:focus-visible{outline:2.5px dashed var(--accent);outl
 img.art{display:block;object-fit:contain;-webkit-user-drag:none;user-select:none;pointer-events:none}
 #backdrop img.bd{width:100%;height:100%;object-fit:cover;opacity:.38}
 .card .inner{will-change:transform}
-.face{-webkit-transform:translateZ(0)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .sk *{fill:none!important}
 .ol{fill:none;stroke-width:1.5}.ol *{fill:none!important;stroke:inherit!important}
@@ -140,15 +139,18 @@ body[data-theme="vn"] .map-title h1{font:42px/1.05 var(--hand);font-weight:400}
 .bar{flex:1;height:10px;border:1.8px solid var(--ink);border-radius:var(--wobble);overflow:hidden;background:var(--card-face)}
 #bar-fill{height:100%;width:0;background:repeating-linear-gradient(115deg,var(--accent) 0 5px,color-mix(in srgb,var(--accent) 70%,#fff) 5px 8px);transition:width .5s cubic-bezier(.3,.8,.3,1)}
 #pair-count{font:18px var(--hand);white-space:nowrap}
-#board-wrap{flex:1;min-height:0;display:grid;place-items:center;margin:10px 0 6px}
+#board-wrap{flex:1;min-height:0;display:grid;place-items:center;margin:8px 0 4px}
+#grid.deal .card{animation:deal .5s cubic-bezier(.25,1.3,.5,1) both}
+@keyframes deal{from{opacity:0;transform:translateY(28px) scale(.82) rotate(-4deg)}}
+.front .art{transition:none}
 #grid{display:grid;grid-template-columns:repeat(4,var(--cw,76px));grid-auto-rows:calc(var(--cw,76px)*1.2);gap:var(--gap,9px);perspective:900px}
 .card{border:0;padding:0;background:none;position:relative;user-select:none;-webkit-user-select:none}
 .card:nth-child(5n+2){rotate:.8deg}.card:nth-child(7n+3){rotate:-.9deg}.card:nth-child(4n+4){rotate:.4deg}
-.card .inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .42s cubic-bezier(.3,.7,.3,1)}
+.card .inner{position:absolute;inset:0;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;transition:transform .42s cubic-bezier(.3,.7,.3,1)}
 .card.open .inner{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1.8px solid #3d372f;border-radius:var(--wobble);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
-.back{background:var(--card-back-img) center/cover,#f3ead8;box-shadow:2px 3px 0 #3d372f}
-.front{background:var(--card-face);transform:rotateY(180deg);padding:4px 3px;color:#3d372f;box-shadow:2px 3px 0 #3d372f}
+.back{background:var(--card-back-img) center/cover,#f3ead8;box-shadow:2px 3px 0 #3d372f;-webkit-transform:rotateY(0deg) translateZ(.5px);transform:rotateY(0deg) translateZ(.5px)}
+.front{background:var(--card-face);-webkit-transform:rotateY(180deg) translateZ(.5px);transform:rotateY(180deg) translateZ(.5px);padding:4px 3px;color:#3d372f;box-shadow:2px 3px 0 #3d372f}
 .front .art{width:88%;height:auto;max-height:58%}
 .front .label{font:clamp(11px,calc(var(--cw,76px)*.16),15px)/1.05 var(--hand);text-align:center;padding:0 2px;margin-top:2px;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
 .front .sub{font:600 clamp(8px,calc(var(--cw,76px)*.105),11px)/1.15 var(--body);color:#8a8072;text-align:center;padding:0 3px;margin-top:1px;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
@@ -890,7 +892,9 @@ function startLevel(ti, s, fresh = false) {
     <div class="score" id="score">${ICON.star}<span class="score-val"></span></div>`;
   $('#back').onclick = () => openMap(ti);
   $('#grid').innerHTML = G.deck.map((k, i) => `<button class="card" data-i="${i}" aria-label="Card ${i + 1}, face down"><span class="inner"><span class="face back"></span><span class="face front">${paint(k)}<span class="label" lang="${T.lang}">${LABEL[k][0]}</span><span class="sub">${LABEL[k][1]}</span></span></span></button>`).join('');
-  $$('.card').forEach(c => c.onclick = () => flip(+c.dataset.i));
+  $$('.card').forEach((c, i) => { c.onclick = () => flip(+c.dataset.i); c.style.animationDelay = (i * 35) + 'ms'; });
+  $('#grid').classList.remove('deal'); void $('#grid').offsetWidth; $('#grid').classList.add('deal');
+  setTimeout(() => $('#grid').classList.remove('deal'), 1400);
   paintCards(); hud(); wire();
   say(G.matched.length ? 'Welcome back. Your board was saved.' : s > 1 && s < 6 ? 'A few old friends from earlier stops are back.' : 'Find the pairs. No rush.');
   show('game');
@@ -1383,12 +1387,26 @@ function help() {
 }
 
 // ---------- Board sizing ----------
+// Pick the grid that makes the cards as big as possible for this screen:
+// e.g. 12 cards → 3×4 on a tall phone, 4×3 on a wide one. Cards may stretch between 1.05 and 1.55 tall.
 function fitBoard() {
-  const w = $('#board-wrap'); if (!w || $('#game').hidden) return;
-  const rows = G ? Math.ceil(G.deck.length / COLS) : 5, W = w.clientWidth, H = w.clientHeight, g = Math.max(7, Math.min(12, W * .025));
-  const cw = Math.floor(Math.min((W - (COLS - 1) * g) / COLS, (H - (rows - 1) * g) / rows / 1.2, 120));
-  $('#grid').style.setProperty('--cw', cw + 'px'); $('#grid').style.setProperty('--gap', g + 'px');
-  $('#grid').classList.toggle('tiny', cw < 70);
+  const w = $('#board-wrap'), grid = $('#grid'); if (!w || $('#game').hidden || !G) return;
+  const N = G.deck.length, W = w.clientWidth, H = w.clientHeight, g = Math.max(8, Math.min(14, Math.min(W, H) * .028));
+  let best = null;
+  for (let c = 2; c <= 6; c++) {
+    if (N % c) continue;
+    const r = N / c;
+    let cw = Math.min((W - (c - 1) * g) / c, 170), ch = Math.min(cw * 1.55, (H - (r - 1) * g) / r);
+    if (ch < cw * 1.05) cw = ch / 1.05;
+    if (cw <= 0) continue;
+    const area = cw * ch;
+    if (!best || area > best.area) best = { c, r, cw: Math.floor(cw), ch: Math.floor(ch), area };
+  }
+  if (!best) return;
+  grid.style.gridTemplateColumns = `repeat(${best.c}, ${best.cw}px)`;
+  grid.style.gridAutoRows = `${best.ch}px`;
+  grid.style.setProperty('--cw', best.cw + 'px'); grid.style.setProperty('--gap', g + 'px');
+  grid.classList.toggle('tiny', best.cw < 70);
 }
 addEventListener('resize', fitBoard);
 
