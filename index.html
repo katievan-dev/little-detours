@@ -33,9 +33,8 @@ body[data-theme="tw"]{--paper:#fbf5ef;--paper2:#f1e7dc;--accent:#d9473f;--accent
 *,*::before,*::after{box-sizing:border-box}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 html,body{margin:0;background:var(--paper);color:var(--ink);overscroll-behavior:none;transition:background-color .4s}
-body{height:100%;font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+body{height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--paper)}
 :lang(ja){font-family:var(--jp)}
 :lang(zh-Hant){font-family:var(--tc)}
@@ -43,6 +42,10 @@ button,input{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 button:focus-visible,input:focus-visible{outline:2.5px dashed var(--accent);outline-offset:3px}
 [hidden]{display:none!important}
+img.art{display:block;object-fit:contain;-webkit-user-drag:none;user-select:none;pointer-events:none}
+#backdrop img.bd{width:100%;height:100%;object-fit:cover;opacity:.38}
+.card .inner{will-change:transform}
+.face{-webkit-transform:translateZ(0)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .sk *{fill:none!important}
 .ol{fill:none;stroke-width:1.5}.ol *{fill:none!important;stroke:inherit!important}
@@ -646,8 +649,29 @@ THEMES.forEach(T => { T.stops = T.stops.map(([name, blurb], i) => ({ name, blurb
 const langOf = k => (THEMES.find(t => t.order.includes(k)) || THEMES[0]).lang;
 
 // ---------- Art ----------
+// Art is drawn as self-contained SVG images: the crayon filter is rasterized once per image,
+// not re-run on every animation frame (big win on iPhone Safari).
+const ART_DEFS = `<defs><style>.sk *{fill:none!important}.ol{fill:none;stroke-width:1.5}.ol *{fill:none!important;stroke:inherit!important}</style><filter id="crayon" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="3" result="w"/>
+ <feDisplacementMap in="SourceGraphic" in2="w" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+ <feColorMatrix in="d" type="saturate" values="1.7" result="s"/>
+ <feTurbulence type="fractalNoise" baseFrequency=".9 .22" numOctaves="2" seed="9" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.25" result="m"/>
+ <feComposite in="s" in2="m" operator="in" result="sp"/>
+ <feTurbulence type="fractalNoise" baseFrequency=".7 .18" numOctaves="2" seed="5" result="g"/>
+ <feColorMatrix in="g" type="matrix" values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .25  0 0 0 -1.2 .62" result="g2"/>
+ <feComposite in="g2" in2="sp" operator="in" result="gt"/>
+ <feBlend in="sp" in2="gt" mode="multiply"/>
+</filter></defs>`;
+const svgURL = svg => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/(<svg[^>]*>)/, '$1' + ART_DEFS));
+const artCache = new Map();
+function artSrc(key, flat) {
+  const id = key + (flat ? ':f' : '');
+  if (!artCache.has(id)) artCache.set(id, svgURL(`<svg viewBox="0 0 125 105" width="250" height="210"><g filter="url(#crayon)" stroke="#4a4237" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round">${drawings[key]}${flat ? '' : `<g class="sk" transform="translate(.7 .45)" opacity=".42">${drawings[key]}</g>`}</g></svg>`));
+  return artCache.get(id);
+}
 function paint(key, cls = '') {
-  return `<svg class="art ${cls}" viewBox="0 0 125 105" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g filter="url(#crayon)" stroke="#4a4237" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round">${drawings[key]}<g class="sk" transform="translate(.7 .45)" opacity=".42">${drawings[key]}</g></g></svg>`;
+  return `<img class="art ${cls}" src="${artSrc(key, cls.includes('flat'))}" alt="" draggable="false" decoding="async">`;
 }
 function outline(key, x, y, w, rot = 0, color = 'currentColor') {
   return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${w / 125})" class="ol" stroke="${color}">${drawings[key]}</g>`;
@@ -717,8 +741,8 @@ const ICON = {
   eye: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 12.2c2.4-4 5.6-6 9.4-6.1 3.9 0 7 2.1 9.4 5.9-2.3 3.9-5.5 6-9.4 6-3.8 0-7-2-9.4-5.8z"/><circle cx="12" cy="12" r="2.7"/></svg>',
   shuffle: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 12a7.8 7.8 0 0 1 13.7-5.2M19.8 12a7.8 7.8 0 0 1-13.7 5.2"/><path d="M18.2 3.2v4h-4M5.8 20.8v-4h4"/></svg>',
   lock: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 10.6h12.2l-.3 9.2H6.2z"/><path d="M8.6 10.5V8a3.4 3.4 0 0 1 6.8 0v2.5"/></svg>',
-  trophy: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g filter="url(#crayon)" stroke="#4a4237" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="M7 4h10v4.5a5 5 0 0 1-10 0z" fill="#f2c14e"/><path d="M7 6H4.5c0 3 1.2 4.4 3 4.6M17 6h2.5c0 3-1.2 4.4-3 4.6" fill="none"/><path d="M10.5 13.4h3v3h-3z" fill="#e9a04a"/><path d="M8 19.5h8v-2.5H8z" fill="#c9923f"/></g></svg>',
-  star: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2.8l2.6 5.6 6.1.7-4.5 4.1 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.1 6.1-.7z" fill="#f2c14e" stroke="#4a4237" stroke-width="1.3" stroke-linejoin="round" filter="url(#crayon)"/></svg>'
+  trophy: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g stroke="#4a4237" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="M7 4h10v4.5a5 5 0 0 1-10 0z" fill="#f2c14e"/><path d="M7 6H4.5c0 3 1.2 4.4 3 4.6M17 6h2.5c0 3-1.2 4.4-3 4.6" fill="none"/><path d="M10.5 13.4h3v3h-3z" fill="#e9a04a"/><path d="M8 19.5h8v-2.5H8z" fill="#c9923f"/></g></svg>',
+  star: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2.8l2.6 5.6 6.1.7-4.5 4.1 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.1 6.1-.7z" fill="#f2c14e" stroke="#4a4237" stroke-width="1.3" stroke-linejoin="round"/></svg>'
 };
 
 // ---------- Theme backgrounds ----------
@@ -763,7 +787,7 @@ function cardBack(T) {
 }
 function applyTheme(T) {
   document.body.dataset.theme = T.id;
-  $('#backdrop').innerHTML = backdrop(T);
+  $('#backdrop').innerHTML = `<img class="bd" alt="" src="${svgURL(backdrop(T).replace('class="bd" ', 'width="400" height="860" '))}">`;
   document.documentElement.style.setProperty('--card-back-img', cardBack(T));
 }
 
@@ -1186,7 +1210,7 @@ function spark(vals) {
   if (vals.length < 2) return '';
   const W = 300, H = 70, step = W / (vals.length - 1);
   const pts = vals.map((v, i) => [i * step, H - 6 - (v / 100) * (H - 12)]);
-  return `<svg class="spark" viewBox="-6 0 ${W + 12} ${H}" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#crayon)"><path d="M0 ${H - 6 - .5 * (H - 12)}H${W}" stroke="#cdbfa6" stroke-dasharray="3 5" fill="none"/><polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="#e2574c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="3.6" fill="#f2c14e" stroke="#3d372f" stroke-width="1.2"/>`).join('')}</g></svg>`;
+  return `<svg class="spark" viewBox="-6 0 ${W + 12} ${H}" preserveAspectRatio="none" aria-hidden="true"><g><path d="M0 ${H - 6 - .5 * (H - 12)}H${W}" stroke="#cdbfa6" stroke-dasharray="3 5" fill="none"/><polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="#e2574c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="3.6" fill="#f2c14e" stroke="#3d372f" stroke-width="1.2"/>`).join('')}</g></svg>`;
 }
 let insightsBack = null;
 function openInsights(back) { insightsBack = back || (() => { renderProfile(); show('profile'); }); renderInsights(); show('insights'); }
