@@ -388,7 +388,14 @@ dialog#sheet::backdrop{background:rgba(50,40,30,.35)}
 #sheet .en{margin-bottom:10px}
 .sheet-art{height:130px;display:grid;place-items:center;margin:4px 0 8px}.sheet-art .art{width:160px;height:134px}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+ /* Gentle motion: keeps flips and feedback, drops looping and travelling effects */
+html.calm .me-pin,html.calm .worth .burst,html.calm .worth .coin,html.calm .bonus-ribbon,html.calm .tier.t-legendary,html.calm .tier-art.t-legendary::after,html.calm .reward-art,html.calm .check-banner .go{animation:none!important}
+html.calm #grid.deal .card,html.calm .big-star.earned svg,html.calm .stamp,html.calm .reward,html.calm .mem-card,html.calm .card.pop .inner{animation-name:fadein!important}
+html.calm .card.pop .inner{animation:none!important}
+html.calm .card .inner{transition-duration:.3s}
+@keyframes fadein{from{opacity:0}}
+.motion-btn{min-height:36px;padding:0 14px;border:1.8px solid var(--ink);border-radius:var(--wobble2);background:var(--card-face);color:#3d372f;font:18px var(--hand)}
+.app-version{margin:4px 0 0;font-size:12px;color:var(--muted);text-align:center}
 @media (min-width:520px){.app{border-left:1.5px dashed var(--line);border-right:1.5px dashed var(--line)}}
 @media (max-height:620px){.hud{height:56px}.avatar{width:40px;height:40px}}
 </style>
@@ -419,6 +426,9 @@ dialog#sheet::backdrop{background:rgba(50,40,30,.35)}
     <div id="home-check"></div>
     <div id="home-themes"></div>
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
+    <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
+    <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
+    <p class="app-version">Version 1.8 · 19 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -609,41 +619,41 @@ const THEMES = [
   {
     id: 'jp', country: 'Japan', native: '日本', lang: 'ja', hero: 'fuji', motto: 'ひとやすみ', mottoEn: 'take a little break',
     stops: [
-      ['Sweet things', 'Mochi, matcha and the snacks of a slow afternoon'],
-      ['Festival clothes', 'What people wear, and play with, at summer festivals'],
-      ['Along the way', 'Gates, mountains and trains on the road'],
-      ['Music & keepsakes', 'Drums, strings and lucky little charms'],
-      ['Quiet crafts', 'Folding, mending, arranging, writing'],
-      ['Tea & old tales', 'A cup of tea and the stories told over it']
+      ['Snacks & tea', 'Mochi, rice balls, matcha and the tea ceremony'],
+      ['Dress & festivals', 'Kimono, yukata and the festivals people wear them to'],
+      ['Along the way', 'Gates, mountains, trains and cherry blossoms'],
+      ['Sounds & play', 'Drums, strings, wind chimes and paper folding'],
+      ['Quiet crafts', 'Mending, arranging, writing and lucky dolls'],
+      ['Tales & spirits', 'Folk heroes, foxes, tanuki and the beckoning cat']
     ],
-    order: ['mochi', 'onigiri', 'matcha', 'taiyaki', 'dango', 'sakura', 'kimono', 'yukata', 'geta', 'kanzashi', 'koinobori', 'kendama', 'torii', 'fuji', 'pagoda', 'shinkansen', 'tsuru', 'furin', 'taiko', 'shamisen', 'koto', 'obon', 'maneki', 'kokeshi', 'origami', 'daruma', 'kintsugi', 'bonsai', 'ikebana', 'calligraphy', 'teaceremony', 'momotaro', 'kaguya', 'urashima', 'kitsune', 'tanuki']
+    order: ['mochi', 'onigiri', 'matcha', 'taiyaki', 'dango', 'teaceremony', 'kimono', 'yukata', 'geta', 'kanzashi', 'obon', 'koinobori', 'torii', 'fuji', 'pagoda', 'shinkansen', 'sakura', 'tsuru', 'taiko', 'shamisen', 'koto', 'furin', 'kendama', 'origami', 'daruma', 'kokeshi', 'kintsugi', 'bonsai', 'ikebana', 'calligraphy', 'momotaro', 'kaguya', 'urashima', 'kitsune', 'tanuki', 'maneki']
   },
   {
     id: 'vn', country: 'Vietnam', native: 'Việt Nam', lang: 'vi', hero: 'nonla', motto: 'nghỉ chân', mottoEn: 'rest your feet a while',
     stops: [
-      ['Street food', 'Bánh mì, phở and a slow iced coffee'],
-      ['Silk & bamboo', 'Dresses, hats and things woven by hand'],
-      ['Rivers & bays', 'Boats, bays, terraces and puppets on water'],
-      ['Festival nights', 'Tết, lanterns and games in the street'],
-      ['Old capitals', 'Temples, citadels and old village crafts'],
-      ['Songs & legends', 'Instruments and the stories behind the country']
+      ['Food & flavors', 'Bánh mì, phở, iced coffee and lotus'],
+      ['Silk & handmade', 'Dresses, hats, scarves and things made by hand'],
+      ['Rivers & fields', 'Bays, boats, rice terraces and kites over the fields'],
+      ['Lanterns & festivals', 'Tết, lanterns, lion dances and street games'],
+      ['Heritage & crafts', 'Old capitals, bronze drums and craft villages'],
+      ['Songs & legends', 'Folk instruments and the stories behind the country']
     ],
-    order: ['banhmi', 'pho', 'coffee', 'roll', 'banhchung', 'lotus', 'aodai', 'aotuthan', 'nonla', 'khanran', 'lantern', 'bamboo', 'halong', 'basketboat', 'sampan', 'waterpuppet', 'terraces', 'dongson', 'tet', 'starlantern', 'liondance', 'kite', 'dacau', 'oanquan', 'literature', 'onepillar', 'hue', 'lacquer', 'dongho', 'battrang', 'danbau', 'dantranh', 'thanhgiong', 'tamcam', 'hoankiem', 'auco']
+    order: ['banhmi', 'pho', 'coffee', 'roll', 'banhchung', 'lotus', 'aodai', 'aotuthan', 'nonla', 'khanran', 'bamboo', 'lacquer', 'halong', 'basketboat', 'sampan', 'terraces', 'kite', 'waterpuppet', 'tet', 'starlantern', 'liondance', 'dacau', 'oanquan', 'lantern', 'literature', 'onepillar', 'hue', 'dongson', 'dongho', 'battrang', 'danbau', 'dantranh', 'thanhgiong', 'tamcam', 'auco', 'hoankiem']
   },
   {
     id: 'tw', country: 'Taiwan', native: '臺灣', lang: 'zh-Hant', hero: 'tw_skylantern', motto: '慢慢來', mottoEn: 'take it slow',
     stops: [
-      ['Night market', 'Bubble tea, soup dumplings and late-night snacks'],
+      ['Eats & treats', 'Bubble tea, soup dumplings and night-market snacks'],
       ['Home & everyday', 'Rice cookers, slippers and the bags everyone owns'],
       ['Temple day', 'Moon blocks, incense and the goddess of the sea'],
-      ['Mountains & sea', 'Towers, forest trains, lakes and marble gorges'],
-      ['Festival days', 'Sky lanterns, dragon boats and Mid-Autumn barbecues'],
+      ['Landmarks & nature', 'Towers, forest trains, lakes and marble gorges'],
+      ['Festivals & play', 'Sky lanterns, dragon boats, puppets and spinning tops'],
       ['Tea & handmade', 'Oolong, oil-paper umbrellas and island canoes']
     ],
     order: ['tw_bubbletea', 'tw_xiaolongbao', 'tw_beefnoodle', 'tw_pineapplecake', 'tw_stinkytofu', 'tw_mangoice', 'tw_redwhitebag', 'tw_ricecooker', 'tw_slippers', 'tw_gajibag', 'tw_scooter', 'tw_bento', 'tw_jiaobei', 'tw_incensebag', 'tw_incenseburner', 'tw_stonelion', 'tw_mazu', 'tw_fortunestick', 'tw_taipei101', 'tw_alishan', 'tw_sunmoonlake', 'tw_taroko', 'tw_blackbear', 'tw_jiufen', 'tw_skylantern', 'tw_dragonboat', 'tw_zongzi', 'tw_budaixi', 'tw_bbq', 'tw_spintop', 'tw_teapot', 'tw_umbrella', 'tw_hakkacloth', 'tw_canoe', 'tw_yingge', 'tw_oolong']
   }
 ];
-const COLS = 4, STOP_PAIRS = [6, 6, 8, 8, 10, 10], WANDER_PAIRS = 10, PEEK_S = 5, MATCH_PTS = 1, QUIZ_PTS = 2;
+const COLS = 4, STOP_PAIRS = [6, 6, 6, 6, 6, 6], STOP_PEEK = [5, 5, 4, 4, 3, 3], WANDER_PAIRS = 10, PEEK_S = 5, MATCH_PTS = 1, QUIZ_PTS = 2;
 const STARTER = ['daruma', 'nonla'];
 const REWARDS = { jp: ['maneki', 'kokeshi', 'tanuki', 'kitsune', 'koinobori', 'sakura'], vn: ['starlantern', 'lotus', 'coffee', 'lantern', 'liondance', 'pho'], tw: ['tw_bubbletea', 'tw_ricecooker', 'tw_stonelion', 'tw_blackbear', 'tw_skylantern', 'tw_teapot'] };
 const AVATARS = [...STARTER, ...REWARDS.jp.flatMap((k, i) => [k, REWARDS.vn[i], REWARDS.tw[i]])];
@@ -699,6 +709,9 @@ THEMES.forEach(T => {
 THEMES.forEach(T => Object.keys(S.t[T.id].done).forEach(s => { const a = REWARDS[T.id][+s]; if (a && !S.unlocked.includes(a)) S.unlocked.push(a); }));
 if (!Array.isArray(S.mem)) S.mem = [];
 if (!S.rev || typeof S.rev !== 'object') S.rev = {};
+if (!['auto', 'full', 'gentle'].includes(S.motion)) S.motion = 'auto';
+const phoneReduces = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const calm = () => S.motion === 'gentle' || (S.motion === 'auto' && phoneReduces());
 const persist = () => store('ld2', S);
 
 // Each stop: its 6 themed pairs, plus review pairs from earlier stops as the trail goes on.
@@ -802,6 +815,13 @@ function show(id) {
 }
 function avatarBtn() { return `<button class="avatar" data-profile aria-label="Your profile">${paint(S.avatar, 'flat')}</button>`; }
 function wire() {
+  document.documentElement.classList.toggle('calm', calm());
+  const mb = $('#motion-btn');
+  if (mb) {
+    mb.textContent = S.motion === 'full' ? 'Full' : S.motion === 'gentle' ? 'Gentle' : `Auto · ${phoneReduces() ? 'gentle' : 'full'}`;
+    mb.onclick = () => { S.motion = { auto: 'full', full: 'gentle', gentle: 'auto' }[S.motion]; persist(); wire(); };
+    $('#motion-note').textContent = S.motion === 'auto' && phoneReduces() ? 'Your phone has Reduce Motion on, so effects are toned down. Tap to switch to Full.' : '';
+  }
   $$('.avatar[data-profile]:empty').forEach(b => b.innerHTML = paint(S.avatar, 'flat'));
   $$('#map .score').forEach(e => { if (!e.querySelector('svg')) e.innerHTML = ICON.trophy + '<span class="score-val"></span>'; });
   $$('[data-profile]').forEach(b => b.onclick = openProfile);
@@ -844,7 +864,7 @@ function openMap(ti) {
   for (let i = 1; i < n; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; d += ` C${x0} ${y0 + H * .55} ${x1} ${y1 - H * .55} ${x1} ${y1}`; }
   const nodes = [0, 1, 2, 3, 4, 5, 6].map(s => {
     const open = s === 6 ? all : unlocked(T, s), done = s < 6 && isDone(T, s), isHere = s === here;
-    const inProg = cur && cur.stop === s;
+    const inProg = cur && cur.stop === s && validCur(cur, s);
     const pairs = s === 6 ? WANDER_PAIRS : STOP_PAIRS[s];
     const sub = !open ? 'Locked' : done ? `<span class="mini-stars" aria-label="${S.t[T.id].stars[s] || 1} of 3 stars">${starRow(S.t[T.id].stars[s] || 1)}</span> ${S.t[T.id].done[s]} pts` : inProg ? `${cur.matched.length} of ${pairs} pairs` : `${pairs} pairs`;
     const art = s === 6 ? T.hero : T.stops[s].keys[s === 0 ? 0 : 1];
@@ -896,7 +916,7 @@ function startLevel(ti, s, fresh = false) {
   $('#grid').classList.remove('deal'); void $('#grid').offsetWidth; $('#grid').classList.add('deal');
   setTimeout(() => $('#grid').classList.remove('deal'), 1400);
   paintCards(); hud(); wire();
-  say(G.matched.length ? 'Welcome back. Your board was saved.' : s > 1 && s < 6 ? 'A few old friends from earlier stops are back.' : 'Find the pairs. No rush.');
+  say(G.matched.length ? 'Welcome back. Your board was saved.' : s > 1 && s < 6 ? `Shorter peek here: ${STOP_PEEK[s]} seconds.` : 'Find the pairs. No rush.');
   show('game');
   if (!resumed) { const due = dueReviews().slice(0, 2); if (due.length) { locked = true; setTimeout(() => memoryCheck(due, () => { locked = false; hud(); say('Now, find the pairs.'); }, 'Before this stop'), 350); } }
 }
@@ -948,7 +968,7 @@ function fly(text, fromEl, cls = '') {
   el.style.left = a.left + a.width / 2 + 'px'; el.style.top = a.top + a.height / 2 + 'px';
   document.body.appendChild(el);
   const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = calm();
   const anim = el.animate(reduce ? [{ opacity: 1 }, { opacity: 0 }] : [
     { transform: 'translate(-50%,-50%) scale(.6)', opacity: 0 },
     { transform: 'translate(-50%,-90%) scale(1.25)', opacity: 1, offset: .25 },
@@ -961,7 +981,7 @@ function fly(text, fromEl, cls = '') {
 $('#peek').onclick = () => {
   if (G.peeked || locked || G.matched.length === PAIRS_OF()) return;
   G.peeked = true; G.peekAt = (G.log || []).length; persist(); locked = true;
-  const r = round; let left = PEEK_S;
+  const r = round; let left = G.stop === 6 ? 4 : STOP_PEEK[G.stop] || PEEK_S;
   $$('.card').forEach(c => c.classList.add('open'));
   say('A quiet moment to remember.');
   peekTimer = setInterval(() => {
@@ -1079,7 +1099,7 @@ function levelDone() {
 // Orchestrated reward moment: stamp → confetti → stars one by one → points count up
 let celebrateRun = 0;
 function celebrate(stars, pts) {
-  const run = ++celebrateRun, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const run = ++celebrateRun, reduce = calm();
   note(196, 0, .25, .03, 'triangle'); buzz([18]);
   if (!reduce) setTimeout(() => run === celebrateRun && confetti(stars), 250);
   [0, 1, 2].forEach(i => { if (i < stars) setTimeout(() => { if (run !== celebrateRun) return; note([784, 988, 1319][i], 0, .5, .03); buzz(10); }, 450 + i * 280); });
@@ -1377,12 +1397,12 @@ $('#sheet').addEventListener('cancel', e => { e.preventDefault(); closeSheet(); 
 function help() {
   sheet(`<h2>How to play</h2>
     <p>Pick a destination and follow its trail. Each stop is a level with its own theme, like street food or festival nights.</p>
-    <p>Early stops have six pairs. Later ones add a few old friends from earlier stops, up to ten pairs.</p>
+    <p>Every stop has six pairs, all from its own theme. Later stops give you a shorter peek, and Free wander mixes ten pairs from the whole country.</p>
     <p>Tap two cards to turn them over. A match is worth <b>+${MATCH_PTS}</b> point.</p>
     <p>After each match, a little challenge appears. Answer it right for <b>+${QUIZ_PTS}</b>, or skip it.</p>
     <p>Each stop also gives you a memory score. Bonus questions come back days later as memory checks, so the stories stick. See it all in Memory insights on your profile.</p>
     <p>Finish a stop to earn up to three stars and unlock a new avatar. Tap the trophy to see the leaderboard.</p>
-    <p>Stuck? Each stop gives you one ${PEEK_S}-second peek. There’s no timer, and your game saves on this device.</p>
+    <p>Stuck? Each stop gives you one peek, from 5 seconds early on down to 3. There’s no timer, and your game saves on this device.</p>
     <button class="btn primary" data-close>Let’s play</button>`);
 }
 
