@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fbf7ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#24262b" media="(prefers-color-scheme: dark)">
-<title>Little Detours</title>
+<title>Little Passport</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
@@ -330,6 +330,94 @@ body[data-theme="vn"] .map-title h1{font:42px/1.05 var(--hand);font-weight:400}
 .ins-how summary{font:20px var(--hand);cursor:pointer}
 .ins-how p{font-size:13.5px;line-height:1.55;margin:8px 0 0}
 
+.story.revealed{background:#f5efe0;border-radius:10px;padding:8px 10px;animation:fadein .4s}
+/* Wardrobe */
+.dress-btn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;padding:10px 14px;border:2px solid #3d372f;border-radius:var(--wobble);background:#fff7d6;color:#3d372f;text-align:left;box-shadow:3px 4px 0 #3d372f}
+.dress-btn .dress-fig{width:54px;height:58px;flex:none}.dress-btn .dress-fig .art{width:54px;height:58px}
+.dress-btn>span:nth-child(2){flex:1;display:flex;flex-direction:column;line-height:1.2}
+.dress-btn b{font:24px var(--hand);font-weight:400}.dress-btn small{font-size:13px;color:#5a5246}
+.small-pill{height:40px;padding:0 14px;font-size:18px}
+.stage{position:relative;height:300px;display:grid;place-items:center;margin:0 0 4px;border:2px solid var(--ink);border-radius:var(--wobble);background:var(--card-face);overflow:hidden}
+.stage .rug{position:absolute;left:50%;bottom:22px;width:190px;height:34px;margin-left:-95px;border-radius:50%;background:repeating-linear-gradient(90deg,#f2c14e 0 10px,#e2574c 10px 20px,#3e88b8 20px 30px,#5aa97c 30px 40px);opacity:.35}
+.stage .traveler-big{position:relative;width:250px;height:264px}
+.stage.pop .traveler-big{animation:dresspop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes dresspop{0%{transform:scale(.92) rotate(-2deg)}60%{transform:scale(1.04) rotate(1deg)}100%{transform:none}}
+.ward-count{text-align:center;margin:8px 0 6px;font:18px var(--hand);color:var(--muted)}
+.ward-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:12px 0}
+.ward-tabs button{display:flex;flex-direction:column;align-items:center;min-width:0;padding:6px 2px;border:1.8px solid var(--ink);border-radius:var(--wobble2);background:var(--card-face);color:#3d372f;font:18px/1.1 var(--hand)}
+.ward-tabs button small{font:11px var(--body);color:#8a8072}
+.ward-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}.ward-tabs button[aria-selected="true"] small{color:var(--paper)}
+.ward-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.ward-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:118px;padding:8px 6px;border:1.8px solid var(--ink);border-radius:var(--wobble2);background:var(--card-face);color:#3d372f;text-align:center}
+.ward-item .art{width:70px;height:60px}
+.ward-item span{font:16px/1.1 var(--hand)}.ward-item span:lang(ja){font:600 14px/1.2 var(--jp)}.ward-item span:lang(zh-Hant){font:15px/1.2 var(--tc)}
+.ward-item small{font-size:11px;color:#8a8072;line-height:1.2}
+.ward-item[aria-pressed="true"]{border-width:3px;border-color:var(--accent);background:#fff3c4}
+.ward-item.locked{border-style:dashed;background:none;color:var(--muted)}.ward-item.locked .lock-ico{display:grid;place-items:center;height:44px}
+.ward-item .none-mark{font:32px var(--hand);height:60px;display:grid;place-items:center;color:#8a8072}
+.ward-label{margin:4px 0 8px;font:20px var(--hand)}
+.swatches{display:flex;gap:12px;margin-bottom:14px}
+.sw{width:44px;height:44px;border-radius:50%;border:2px solid var(--ink)}
+.sw[aria-pressed="true"]{outline:3px solid var(--accent);outline-offset:3px}
+.reward-art.tall{width:64px;height:68px}.reward-art.tall .art{width:64px;height:68px}
+.avatars button img.art{width:44px;height:44px}
+
+/* Travel economy */
+.score.coins{min-width:64px;margin-left:6px}.coin-ico{flex:none}
+.hud .score.coins{padding-left:6px}
+.market-banner{background:#fff3c4}
+.poster.locked-dest .poster-art{filter:grayscale(.7);opacity:.6}
+.poster.locked-dest .poster-native,.poster.locked-dest .poster-en{opacity:.6}
+.poster.locked-dest .poster-foot span:last-child{display:flex;align-items:center;gap:3px}
+.poster.locked-dest .poster-go{background:#fffaf1}
+.coins-earned b{color:#c9922e!important}
+.wallet{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border:2px solid #3d372f;border-radius:var(--wobble);background:#fff3c4;color:#3d372f;box-shadow:3px 4px 0 #3d372f}
+.wallet .coin-ico{width:34px;height:34px}.wallet b{font:40px/1 var(--hand);font-weight:400}.wallet span{font:18px var(--hand);color:#5a5246}
+.wallet.bump{animation:bump .5s ease}
+.next-ticket{text-align:center;margin:10px 0 0;font:18px var(--hand);color:var(--muted)}
+.demand{display:flex;align-items:center;gap:10px;margin:14px 0 0;padding:10px 12px;border:1.8px dashed var(--accent);border-radius:var(--wobble2);font-size:14px}
+.dm-ico{color:var(--accent);font-size:18px}
+.spares li>button{padding:6px 0;border-bottom:1px dashed var(--line);border-radius:0}
+.poster-list.spares{grid-template-columns:1fr}
+.sp-meta{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;font:20px/1 var(--hand)}.sp-meta small{font:12px var(--body);color:var(--muted);margin-top:4px}
+.bid-now{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px;padding:10px 14px;border:2px solid #3d372f;border-radius:var(--wobble2);background:#fff3c4}
+.bid-now small{font:18px var(--hand);color:#5a5246}.bid-now span{display:flex;align-items:center;gap:6px}.bid-now b{font:34px/1 var(--hand);font-weight:400}
+.bid-now.bump{animation:bump .45s ease}
+.bids{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;max-height:210px;overflow-y:auto}
+.bids li{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1.5px solid #cdbfa6;border-radius:var(--wobble2);animation:fadein .35s}
+.bids li .avatar{width:36px;height:36px}.bids li .avatar .art{width:32px;height:28px}
+.bids .who-col b{font:18px var(--hand)}.bids .who-col small{font-size:11.5px}
+.bids .pts{font:22px var(--hand)}
+.bids li.waiting,.bids li.settled{border:0;justify-content:center;font-size:17px;color:#8a8072}
+.au-actions{margin-top:10px}
+.tk{display:flex;border:2px solid #3d372f;border-radius:14px;background:#fffaf1;color:#3d372f;overflow:hidden;margin:6px 0 12px;box-shadow:3px 4px 0 #3d372f}
+.tk-main{flex:1;padding:12px 14px;display:flex;flex-direction:column;border-right:2px dashed #3d372f}
+.tk-main small{font:15px var(--hand);color:#8a8072}.tk-main b{font:28px/1.2 var(--hand);font-weight:400}.tk-main em{font-style:normal;font-size:13px;color:#8a8072}
+.tk-stub{width:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#fff3c4}.tk-stub b{font:24px var(--hand);font-weight:400}
+.flight{max-width:440px;margin:0 auto;text-align:center}
+.flight-map{width:100%;height:auto;border:2px solid #3d372f;border-radius:18px;margin-top:10px}
+.arrive{margin-top:12px}.arrive h2{font:34px var(--hand);margin:10px 0 4px;font-weight:400}.arrive p{font-size:19px;color:var(--muted);margin:0 0 6px}
+.big-stamp{margin:0 auto}
+
+/* Motion tutorial */
+#coach{position:fixed;inset:0;z-index:55;pointer-events:none}
+#coach.out{opacity:0;transition:opacity .22s}
+#coach .spot{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(28,24,20,.48);outline:2.5px dashed #f2c14e;outline-offset:2px;animation:spotin .36s ease-out both}
+@keyframes spotin{from{opacity:0;transform:scale(1.15)}}
+#coach .tip{position:fixed;transform:translateX(-50%) rotate(-1.5deg);background:#fffaf1;color:#3d372f;border:2px solid #3d372f;border-radius:var(--wobble2);box-shadow:3px 4px 0 #3d372f;font:23px/1.1 var(--hand);padding:7px 16px 6px;white-space:nowrap;animation:tipin .48s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes tipin{from{opacity:0;transform:translateX(-50%) scale(.6)}}
+#coach svg.arrow{position:fixed;left:0;top:0;width:100vw;height:100vh;overflow:visible}
+#coach .arrow path{fill:none;stroke:#f2c14e;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw .54s .24s ease-out forwards}
+#coach .arrow path+path{animation-delay:.72s}
+@keyframes draw{to{stroke-dashoffset:0}}
+#coach .arrow g{animation:nudge 1.32s ease-in-out 1.2s infinite}
+@keyframes nudge{50%{transform:translate(var(--dx),var(--dy))}}
+#coach .ripple{position:fixed;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;border:3px solid #fffaf1;opacity:0;animation:ripple 1.92s ease-out .96s infinite}
+#coach .ripple.b{animation-delay:1.92s}
+@keyframes ripple{0%{transform:scale(.4);opacity:.95}100%{transform:scale(1.5);opacity:0}}
+html.calm #coach .arrow g,html.calm #coach .ripple{animation:none!important}
+html.calm #coach .ripple{opacity:.8}
+
 /* Leaderboard */
 button.score{cursor:pointer}
 .board-sub{margin:0 0 14px;color:var(--muted);font-size:14px}
@@ -419,16 +507,17 @@ html.calm .card .inner{transition-duration:.3s}
 
   <section class="screen" id="home">
     <div class="hud" id="home-hud"></div>
-    <h1 class="home-title">little <i>detours</i>
+    <h1 class="home-title">little <i>passport</i>
       <svg width="70" height="44" viewBox="0 0 70 44" aria-hidden="true"><g filter="url(#crayon)"><path d="M20 30c-9 1-12-9-4-12 1-8 13-10 16-3 6-4 14 0 13 7 7 1 7 9 0 9z" fill="#a9d3ef" stroke="#3d372f" stroke-width="1.4"/><circle cx="55" cy="10" r="6" fill="#f2c14e" stroke="#3d372f" stroke-width="1.3"/><path d="M55 0v-2M64 10h3M62 3l2-2M46 3l-2-2" stroke="#e5a52a" stroke-width="1.6" stroke-linecap="round"/></g></svg>
     </h1>
-    <p class="home-sub">A small detour, a world to discover. Pick where to wander today.</p>
+    <p class="home-sub">A small trip, a world to discover. Pick where to wander today.</p>
     <div id="home-check"></div>
+    <div id="home-market"></div>
     <div id="home-themes"></div>
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
     <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
     <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
-    <p class="app-version">Version 1.8 · 19 Nov 2026</p>
+    <p class="app-version">Version 2.5 · 21 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -449,6 +538,16 @@ html.calm .card .inner{transition-duration:.3s}
     <div id="board-body"></div>
   </section>
 
+  <section class="screen" id="market" hidden>
+    <div class="p-head"><button class="icon-btn" id="market-back" aria-label="Back"><span data-icon="back"></span></button><h1>Souvenir market</h1><span style="width:44px"></span></div>
+    <div id="market-body"></div>
+  </section>
+
+  <section class="screen" id="wardrobe" hidden>
+    <div class="p-head"><button class="icon-btn" id="wardrobe-back" aria-label="Back"><span data-icon="back"></span></button><h1>Dress up</h1><button class="pill small-pill" id="wardrobe-random" aria-label="Surprise me">Surprise</button></div>
+    <div id="wardrobe-body"></div>
+  </section>
+
   <section class="screen" id="insights" hidden>
     <div class="p-head"><button class="icon-btn" id="insights-back" aria-label="Back"><span data-icon="back"></span></button><h1>Memory insights</h1><span style="width:44px"></span></div>
     <div id="insights-body"></div>
@@ -460,6 +559,7 @@ html.calm .card .inner{transition-duration:.3s}
   </section>
 </div>
 <div id="challenge" hidden></div>
+<div id="coach" hidden></div>
 <div id="done" hidden></div>
 <dialog id="sheet" aria-label="Details"><div class="grip" aria-hidden="true"></div><div id="sheet-body" tabindex="-1"></div></dialog>
 <script>
@@ -567,7 +667,7 @@ function art(key){const id='paper-art-'+(++artSerial);return `<svg class="illust
 
 </script>
 <script>
-// ================= Little Detours · v2 =================
+// ================= Little Passport · v2 =================
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
@@ -591,6 +691,16 @@ const LABEL = {
 
 Object.assign(LABEL,{"tw_bubbletea": ["珍珠奶茶", "Bubble tea"], "tw_xiaolongbao": ["小籠包", "Soup dumplings"], "tw_beefnoodle": ["牛肉麵", "Beef noodle soup"], "tw_pineapplecake": ["鳳梨酥", "Pineapple cake"], "tw_stinkytofu": ["臭豆腐", "Stinky tofu"], "tw_mangoice": ["芒果冰", "Mango shaved ice"], "tw_redwhitebag": ["紅白塑膠袋", "Red & white striped bag"], "tw_ricecooker": ["大同電鍋", "Tatung rice cooker"], "tw_slippers": ["藍白拖", "Blue & white slippers"], "tw_gajibag": ["茄芷袋", "Gaji bag"], "tw_scooter": ["機車", "Scooter"], "tw_bento": ["台鐵便當", "Railway bento"], "tw_jiaobei": ["筊杯", "Moon blocks"], "tw_incensebag": ["香火袋", "Temple amulet"], "tw_incenseburner": ["香爐", "Incense burner"], "tw_stonelion": ["石獅", "Guardian lions"], "tw_mazu": ["媽祖", "Mazu, goddess of the sea"], "tw_fortunestick": ["籤詩", "Fortune poems"], "tw_taipei101": ["台北101", "Taipei 101"], "tw_alishan": ["阿里山林鐵", "Alishan Forest Railway"], "tw_sunmoonlake": ["日月潭", "Sun Moon Lake"], "tw_taroko": ["太魯閣", "Taroko Gorge"], "tw_blackbear": ["台灣黑熊", "Formosan black bear"], "tw_jiufen": ["九份", "Jiufen"], "tw_skylantern": ["平溪天燈", "Sky lanterns"], "tw_dragonboat": ["龍舟", "Dragon boat"], "tw_zongzi": ["粽子", "Zongzi"], "tw_budaixi": ["布袋戲", "Glove puppetry"], "tw_bbq": ["中秋烤肉", "Mid-Autumn barbecue"], "tw_spintop": ["陀螺", "Spinning top"], "tw_teapot": ["茶壺", "Teapot"], "tw_umbrella": ["美濃紙傘", "Oil-paper umbrella"], "tw_hakkacloth": ["客家花布", "Hakka floral fabric"], "tw_canoe": ["拼板舟", "Tao plank canoe"], "tw_yingge": ["鶯歌陶瓷", "Yingge pottery"], "tw_oolong": ["高山烏龍", "High-mountain oolong"]});
 
+// ---------- Short intros + self-contained questions (full story is revealed after answering) ----------
+const QA = {"mochi": {"b": "A soft, chewy treat, often eaten at New Year.", "q": "What is mochi made from?"}, "onigiri": {"b": "A hand-shaped rice ball, a lunchbox favorite.", "q": "What is wrapped around an onigiri?"}, "matcha": {"b": "A bright green tea from Japan.", "q": "How is matcha prepared?"}, "taiyaki": {"b": "A warm little cake shaped like a fish.", "q": "What is the classic filling inside taiyaki?"}, "dango": {"b": "Rice-flour dumplings served on a skewer.", "q": "Pink, white and green dango are eaten in which season?"}, "sakura": {"b": "Japan’s beloved spring flower.", "q": "During hanami, people gather to enjoy…"}, "kimono": {"b": "Japan’s traditional wrapped garment.", "q": "What ties a kimono closed?"}, "yukata": {"b": "A light cotton robe, like a casual kimono.", "q": "When do people usually wear a yukata?"}, "geta": {"b": "Sandals with raised supports under the sole.", "q": "What are geta made of?"}, "kanzashi": {"b": "Ornaments worn in the hair.", "q": "Tiny petals on some kanzashi are folded from…", "a": ["Squares of silk", "Tea leaves", "Carved ice"], "c": 0}, "torii": {"b": "A tall gate, often painted vermilion.", "q": "Walking through a torii means you are entering…", "a": ["A fish market", "A Shinto shrine", "A train station"], "c": 1}, "fuji": {"b": "Japan’s highest mountain.", "q": "What kind of mountain is Mount Fuji?"}, "pagoda": {"b": "A tower with five stacked roofs.", "q": "Five-story pagodas usually stand at which kind of temple?", "a": ["Race tracks", "Ice palaces", "Buddhist temples"], "c": 2}, "shinkansen": {"b": "Japan’s high-speed “bullet train.”", "q": "When did the first bullet train start running?"}, "koinobori": {"b": "Streamers flown for Children’s Day in May.", "q": "What fish do koinobori look like?", "en": "Children’s Day streamers"}, "taiko": {"b": "A powerful instrument of festivals and stages.", "q": "What kind of instrument is a taiko?", "en": "Taiko"}, "shamisen": {"b": "A Japanese lute played with a large plectrum.", "q": "How many strings does a shamisen have?"}, "koto": {"b": "A long Japanese instrument played on the floor.", "q": "A classic koto has how many strings?"}, "origami": {"b": "The Japanese art of folding.", "q": "What does origami fold?"}, "kendama": {"b": "A wooden skill toy with a ball and cups.", "q": "How is the ball attached to a kendama?"}, "daruma": {"b": "A round red doll with blank white eyes.", "q": "When do people paint in a daruma’s first eye?", "a": ["At high tide", "When setting a goal", "When a train leaves"], "c": 1}, "maneki": {"b": "The lucky cat seen in shops and restaurants.", "q": "What is the cat doing with its raised paw?", "a": ["Saying goodbye", "Catching a fish", "Beckoning people in"], "c": 2, "en": "Lucky cat"}, "kokeshi": {"b": "Simple wooden dolls with painted faces.", "q": "Kokeshi come from which part of Japan?", "a": ["The top of Mount Fuji", "Tōhoku, in the north", "Okinawa, in the south"], "c": 1}, "furin": {"b": "A little bell that rings in the summer breeze.", "q": "What hangs below a fūrin to catch the wind?"}, "tsuru": {"b": "An elegant crane with a red patch on its head.", "q": "Where in Japan do wild red-crowned cranes live?", "a": ["Okinawa", "Central Tokyo", "Hokkaidō"], "c": 2}, "kintsugi": {"b": "A way of mending what’s broken, and making it beautiful.", "q": "Kintsugi fills the cracks in pottery with…", "a": ["Gold-dusted lacquer", "Clear tape", "Melted wax"], "c": 0}, "bonsai": {"b": "A Japanese art that takes years of patient care.", "q": "What is grown in bonsai?", "a": ["Seaweed on paper", "Miniature trees in pots", "Flowers in ice"], "c": 1}, "ikebana": {"b": "A Japanese art of balance, line and space.", "q": "What does ikebana arrange?", "a": ["Boats", "Flowers and branches", "Drums"], "c": 1}, "calligraphy": {"b": "Shodō is the Japanese art of beautiful writing.", "q": "What tool does shodō use?"}, "teaceremony": {"b": "Chanoyu is the Japanese tea ceremony.", "q": "Which tea is whisked in chanoyu?"}, "momotaro": {"b": "A folk hero who sets out to fight ogres.", "q": "Momotarō was found inside which fruit?", "en": "Momotarō"}, "kaguya": {"b": "A princess from Japan’s oldest folk tale.", "q": "Where is tiny Kaguya-hime first found?", "en": "Princess Kaguya"}, "urashima": {"b": "A fisherman visits a palace under the sea.", "q": "Which animal carries Urashima Tarō to the sea palace?"}, "kitsune": {"b": "A clever shape-shifter in Japanese tales.", "q": "What animal is a kitsune?", "en": "Kitsune"}, "tanuki": {"b": "A cheerful shape-shifter, often wearing a straw hat.", "q": "In real life, a tanuki is a…"}, "obon": {"b": "Summer nights when families honor their ancestors.", "q": "What is bon odori?", "a": ["A pottery firing", "A dance in a circle", "A mountain climb"], "c": 1, "en": "Bon odori"}, "banhmi": {"b": "Vietnam’s famous street sandwich.", "q": "What bread is used for bánh mì?"}, "pho": {"b": "Vietnam’s fragrant soup, often eaten for breakfast.", "q": "What noodles go in phở?"}, "coffee": {"b": "Strong coffee, dripped slowly through a phin filter.", "q": "What sweetens cà phê sữa đá?", "en": "Vietnamese iced coffee"}, "roll": {"b": "Fresh rolls filled with herbs, noodles and shrimp.", "q": "What is gỏi cuốn wrapped in?"}, "lotus": {"b": "A flower growing in ponds across Vietnam.", "q": "Which parts of the lotus are eaten?"}, "aodai": {"b": "Vietnam’s elegant national dress.", "q": "What is worn under the long tunic of an áo dài?"}, "aotuthan": {"b": "A traditional dress sewn from four panels.", "q": "Áo tứ thân comes from which region?", "a": ["Southern Vietnam", "The Central Highlands", "Northern Vietnam"], "c": 2}, "nonla": {"b": "A hat of leaves stitched onto thin bamboo ribs.", "q": "What shape is a nón lá?", "a": ["Square", "Round like a ball", "Conical"], "c": 2}, "khanran": {"b": "A cotton scarf worn across southern Vietnam.", "q": "What pattern does a khăn rằn have?", "en": "Southern scarf"}, "lantern": {"b": "Glowing lanterns that light up an old trading town.", "q": "Hội An lanterns are traditionally covered in…", "a": ["Banana leaves", "Colorful silk", "Newspaper"], "c": 1}, "bamboo": {"b": "Baskets, trays and mats found in every home.", "q": "How are bamboo strips turned into a basket?", "en": "Bamboo crafts"}, "halong": {"b": "Thousands of islands rising from emerald water.", "q": "Hạ Long Bay’s island pillars are made of…"}, "basketboat": {"b": "A round little boat used by fishing families.", "q": "What is a thúng chai woven from?"}, "sampan": {"b": "A small, flat-bottomed boat.", "q": "Where would you find a sampan?"}, "terraces": {"b": "Golden fields climbing the northern mountains.", "q": "Why are fields carved into steps on the hills?", "a": ["To farm steep land", "To catch snow", "To launch boats"], "c": 0}, "kite": {"b": "Kites flown over rice fields on windy evenings.", "q": "What makes a sáo diều hum in the wind?", "en": "Singing kite"}, "waterpuppet": {"b": "A folk theater from the villages of the north.", "q": "Where do the puppeteers stand during a show?", "a": ["Under the audience seats", "Waist-deep in water, behind a screen", "On a high balcony"], "c": 1}, "tet": {"b": "Vietnam’s biggest holiday, a time to go home.", "q": "What do children receive at Tết?", "a": ["Snow globes", "Lucky money in red envelopes", "Carved pumpkins"], "c": 1, "en": "Tết holiday"}, "starlantern": {"b": "A five-pointed lantern of bamboo and cellophane.", "q": "Children carry these lanterns at which festival?"}, "liondance": {"b": "Drums, cymbals and dancers moving as one in the street.", "q": "When is múa lân usually performed?", "a": ["At Tết and Mid-Autumn", "On the first day of school", "At winter ski races"], "c": 0}, "dacau": {"b": "A game played in parks and schoolyards.", "q": "How do players keep the shuttlecock in the air?", "a": ["With a fishing net", "By kicking it", "With a racket"], "c": 1, "en": "Shuttlecock game"}, "oanquan": {"b": "A strategy game drawn in squares on the ground.", "q": "What do players move around the board?", "en": "Mandarin squares"}, "banhchung": {"b": "Sticky rice, mung beans and pork, wrapped in leaves.", "q": "What shape is bánh chưng?", "en": "Tết rice cake"}, "literature": {"b": "Vietnam’s first university, founded in 1070.", "q": "Which city is home to the Temple of Literature?"}, "onepillar": {"b": "A small pagoda standing on a single stone pillar.", "q": "Which flower inspired its shape?"}, "hue": {"b": "A walled citadel of gates, moats and palaces.", "q": "Which dynasty ruled from Huế’s Imperial City?", "a": ["Lý", "Nguyễn", "Trần"], "c": 1}, "dongson": {"b": "Ancient drums decorated with birds, boats and a star.", "q": "What are Đông Sơn drums made of?", "a": ["Bronze", "Silver", "Iron"], "c": 0, "en": "Đông Sơn drum"}, "dongho": {"b": "Cheerful folk pictures hung at Tết.", "q": "How are Đông Hồ pictures made?", "en": "Folk picture"}, "battrang": {"b": "A craft village near Hanoi with centuries of history.", "q": "Bát Tràng village is famous for…", "a": ["Fireworks", "Ceramics", "Silk"], "c": 1, "en": "Bát Tràng village"}, "lacquer": {"b": "A painting built from many polished layers.", "q": "What is pressed into lacquer for white highlights?", "a": ["Crushed eggshell", "Fresh snow", "Soap bubbles"], "c": 0}, "danbau": {"b": "An instrument with a haunting, singing tone.", "q": "How many strings does a đàn bầu have?", "a": ["Sixteen", "One", "Six"], "c": 1, "en": "Folk instrument"}, "dantranh": {"b": "A long instrument with movable bridges.", "q": "How is a đàn tranh played?", "a": ["By plucking strings", "By drumming", "By blowing"], "c": 0, "en": "Vietnamese zither"}, "thanhgiong": {"b": "A boy who grew into a giant to defend his land.", "q": "What does Gióng ride into battle?"}, "tamcam": {"b": "A folktale about two half-sisters.", "q": "Which lost item helps the king find Tấm?"}, "auco": {"b": "Vietnam’s origin story: a fairy and a dragon king.", "q": "Where do their hundred children go?"}, "hoankiem": {"b": "A lake in the heart of Hanoi with a famous legend.", "q": "To whom is the magic sword returned?"}, "tw_bubbletea": {"b": "A Taiwanese drink loved around the world.", "q": "What are the chewy “pearls” in bubble tea?"}, "tw_xiaolongbao": {"b": "Delicate dumplings steamed in bamboo baskets.", "q": "What surprise is inside a xiaolongbao?", "en": "Xiaolongbao"}, "tw_beefnoodle": {"b": "One of Taiwan’s best-loved comfort foods.", "q": "How is the beef usually cooked?", "a": ["Raw and thinly sliced", "Deep-fried", "Braised for hours"], "c": 2}, "tw_pineapplecake": {"b": "Buttery pastry, a favorite gift from Taiwan.", "q": "Why are pineapple cakes a lucky gift?", "a": ["They never spoil", "Its name sounds like “prosperity comes”", "They are shaped like coins"], "c": 1}, "tw_stinkytofu": {"b": "A snack you can smell from far away.", "q": "What gives stinky tofu its strong smell?"}, "tw_mangoice": {"b": "A mountain of fluffy ice and fruit.", "q": "Mango shaved ice is a treat for which season?", "a": ["Only at Lunar New Year", "Summer", "Winter"], "c": 1}, "tw_redwhitebag": {"b": "A cheap, sturdy plastic carrier bag.", "q": "Where do you often see these striped bags?"}, "tw_ricecooker": {"b": "A green kitchen classic in many Taiwanese homes.", "q": "Besides cooking rice, what is it loved for?"}, "tw_slippers": {"b": "Simple rubber slippers everyone seems to own.", "q": "Where are 藍白拖 usually worn?", "a": ["At home and around the block", "At formal weddings", "On mountain hikes"], "c": 0}, "tw_gajibag": {"b": "A sturdy tote carried to markets for decades.", "q": "What is a gaji bag known for?"}, "tw_scooter": {"b": "Taiwan’s favorite way to get around town.", "q": "Why are scooters so popular in Taiwan’s cities?", "a": ["They float on rivers", "They are free to ride", "Easy to park and nimble in traffic"], "c": 2}, "tw_bento": {"b": "A lunch box sold on Taiwan’s trains.", "q": "What is the star of the classic railway bento?"}, "tw_jiaobei": {"b": "Two curved blocks used to ask the gods a question.", "q": "One flat side and one round side facing up means…"}, "tw_incensebag": {"b": "A small cloth pouch blessed at a temple.", "q": "Why do people carry a temple amulet?"}, "tw_incenseburner": {"b": "A large bronze pot filled with ash.", "q": "Where do you find large incense burners?", "a": ["Inside train stations", "In front of temple halls", "On fishing boats"], "c": 1}, "tw_stonelion": {"b": "Stone guardians standing in pairs at temple gates.", "q": "What does the female guardian lion protect?"}, "tw_mazu": {"b": "One of Taiwan’s most beloved goddesses.", "q": "Mazu protects people who…", "en": "Mazu"}, "tw_fortunestick": {"b": "Numbered sticks shaken from a cup at temples.", "q": "What does a numbered stick lead you to?", "en": "Fortune sticks"}, "tw_taipei101": {"b": "Once the tallest building in the world.", "q": "What steadies Taipei 101 in strong winds?"}, "tw_alishan": {"b": "A little train climbing into misty mountains.", "q": "What was the railway first built to carry?"}, "tw_sunmoonlake": {"b": "A calm mountain lake in central Taiwan.", "q": "What makes Sun Moon Lake special?", "a": ["It is Taiwan’s saltiest lake", "It freezes every winter", "It is Taiwan’s largest lake"], "c": 2}, "tw_taroko": {"b": "A deep gorge carved by a turquoise river.", "q": "Taroko’s soaring cliffs are mostly made of…"}, "tw_blackbear": {"b": "Taiwan’s largest land animal, living in mountain forests.", "q": "What marks the Formosan black bear’s chest?"}, "tw_jiufen": {"b": "A hillside town of stairs, tea houses and red lanterns.", "q": "Jiufen grew because of…"}, "tw_skylantern": {"b": "Paper lanterns floating into the night in Pingxi.", "q": "What do people write on sky lanterns?"}, "tw_dragonboat": {"b": "Long boats racing to the beat of a drum.", "q": "When is the Dragon Boat Festival?"}, "tw_zongzi": {"b": "Sticky rice parcels tied with string.", "q": "What are zongzi wrapped in?"}, "tw_budaixi": {"b": "Puppet theater full of heroes and bright costumes.", "q": "How are budaixi puppets moved?", "en": "Budaixi puppets"}, "tw_bbq": {"b": "Families grilling outdoors under the full moon.", "q": "Which fruit is a Mid-Autumn favorite in Taiwan?"}, "tw_spintop": {"b": "A wooden toy that whirls on its tip.", "q": "How do you launch a wooden top?"}, "tw_teapot": {"b": "Used to brew tea slowly, many times over.", "q": "Gongfu tea is brewed in a teapot that is…"}, "tw_umbrella": {"b": "Hand-painted paper umbrellas on bamboo frames.", "q": "Which Hakka town is famous for these umbrellas?", "a": ["Yingge", "Jiufen", "Meinong"], "c": 2}, "tw_hakkacloth": {"b": "Bold, bright fabric for quilts and bags.", "q": "Which flower often blooms on Hakka fabric?"}, "tw_canoe": {"b": "Canoes built from planks and painted with eyes.", "q": "Which island is home to these canoes?"}, "tw_yingge": {"b": "An old-street town just outside Taipei.", "q": "What is Yingge famous for?", "en": "Yingge"}, "tw_oolong": {"b": "Tea grown high in Taiwan’s misty mountains.", "q": "What happens to rolled oolong leaves in hot water?"}};
+const BLURB = {};
+Object.entries(QA).forEach(([k, d]) => {
+  if (!items[k]) return;
+  BLURB[k] = d.b;
+  if (d.q) items[k][2] = d.q;
+  if (d.a) { items[k][3] = d.a; items[k][4] = d.c; }
+  if (d.en && LABEL[k]) LABEL[k][1] = d.en;
+});
 // ---------- Scarcity tiers ----------
 const TIERS = [
   { id: 'common', name: 'Common', mark: '●' },
@@ -695,8 +805,8 @@ function store(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch
 let journal = load('ld-journal', []); if (!Array.isArray(journal)) journal = []; journal = journal.filter(k => items[k]);
 let S = load('ld2', null);
 if (!S || typeof S !== 'object') S = {};
-S = Object.assign({ name: 'Traveler', avatar: 'daruma', score: 0, sound: true, seenHelp: false, t: {} }, S);
-if (!AVATARS.includes(S.avatar) && !drawings[S.avatar]) S.avatar = 'daruma';
+S = Object.assign({ name: 'Traveler', avatar: 'traveler', score: 0, sound: true, seenHelp: false, t: {} }, S);
+if (S.avatar !== 'traveler' && !AVATARS.includes(S.avatar) && !drawings[S.avatar]) S.avatar = 'traveler';
 if (!Array.isArray(S.unlocked)) S.unlocked = [...STARTER, ...(STARTER.includes(S.avatar) ? [] : [S.avatar])];
 if (!Number.isFinite(S.score) || S.score < 0) S.score = 0;
 THEMES.forEach(T => {
@@ -811,9 +921,9 @@ function show(id) {
   $$('.screen').forEach(s => s.hidden = s.id !== id);
   $('#' + id).scrollTop = 0;
   if (id === 'game') requestAnimationFrame(fitBoard);
-  if (id === 'home' || id === 'profile' || id === 'board' || id === 'insights') { document.body.dataset.theme = 'home'; $('#backdrop').innerHTML = ''; }
+  if (id === 'home' || id === 'profile' || id === 'board' || id === 'insights' || id === 'wardrobe' || id === 'market') { document.body.dataset.theme = 'home'; $('#backdrop').innerHTML = ''; }
 }
-function avatarBtn() { return `<button class="avatar" data-profile aria-label="Your profile">${paint(S.avatar, 'flat')}</button>`; }
+function avatarBtn() { return `<button class="avatar" data-profile aria-label="Your profile">${avatarArt()}</button>`; }
 function wire() {
   document.documentElement.classList.toggle('calm', calm());
   const mb = $('#motion-btn');
@@ -822,23 +932,35 @@ function wire() {
     mb.onclick = () => { S.motion = { auto: 'full', full: 'gentle', gentle: 'auto' }[S.motion]; persist(); wire(); };
     $('#motion-note').textContent = S.motion === 'auto' && phoneReduces() ? 'Your phone has Reduce Motion on, so effects are toned down. Tap to switch to Full.' : '';
   }
-  $$('.avatar[data-profile]:empty').forEach(b => b.innerHTML = paint(S.avatar, 'flat'));
+  $$('.avatar[data-profile]:empty').forEach(b => b.innerHTML = avatarArt());
   $$('#map .score').forEach(e => { if (!e.querySelector('svg')) e.innerHTML = ICON.trophy + '<span class="score-val"></span>'; });
   $$('[data-profile]').forEach(b => b.onclick = openProfile);
   $$('.sound-btn').forEach(b => { b.innerHTML = S.sound ? ICON.sOn : ICON.sOff; b.setAttribute('aria-label', S.sound ? 'Sound on' : 'Sound off'); b.setAttribute('aria-pressed', S.sound); b.onclick = () => { S.sound = !S.sound; persist(); wire(); sfx.flip(); }; });
   $$('.help-btn').forEach(b => b.onclick = help);
+  $$('[data-market]').forEach(b => b.onclick = () => openMarket(!$('#map').hidden ? (ti => () => openMap(ti))(THEMES.indexOf(T)) : null));
+  $$('.coin-val').forEach(e => e.textContent = S.coins);
   $$('[data-board]').forEach(b => b.onclick = () => openBoard(!$('#map').hidden ? (ti => () => openMap(ti))(THEMES.indexOf(T)) : null));
   $$('.score-val').forEach(e => e.textContent = S.score);
 }
 
 // Home
 function renderHome() {
-  $('#home-hud').innerHTML = `${avatarBtn()}<div class="who"><b>${esc(S.name)}</b><small>${journal.length} of ${THEMES.length * 36} discoveries</small></div><button class="score" data-board aria-label="Leaderboard, ${S.score} points">${ICON.trophy}<span class="score-val"></span></button>`;
+  $('#home-hud').innerHTML = `${avatarBtn()}<div class="who"><b>${esc(S.name)}</b><small>${journal.length} of ${THEMES.length * 36} discoveries</small></div><button class="score" data-board aria-label="Leaderboard, ${S.score} points">${ICON.trophy}<span class="score-val"></span></button>${coinPill()}`;
   const dueN = dueReviews().length;
+  const spN = sparesCount();
+  $('#home-market').innerHTML = (myStops() > 0 || spN) ? `<button class="check-banner market-banner" id="market-btn"><span class="ins-ico" aria-hidden="true">${COIN}</span><span><b>Souvenir market</b><small>${spN ? `${spN} spare${spN > 1 ? 's' : ''} to share` : 'Spares from replays sell here'} · ${S.coins} coins</small></span><span aria-hidden="true">›</span></button>` : '';
+  if ($('#market-btn')) $('#market-btn').onclick = () => openMarket();
   $('#home-check').innerHTML = dueN ? `<button class="check-banner" id="home-check-btn"><span class="ins-ico" aria-hidden="true">✦</span><span><b>Memory check</b><small>${dueN} stor${dueN > 1 ? 'ies' : 'y'} to remember from earlier</small></span><span class="go">+${dueN}</span></button>` : '';
   if (dueN) $('#home-check-btn').onclick = () => memoryCheck(dueReviews().slice(0, 5), () => renderHome());
   $('#home-themes').innerHTML = THEMES.map((T, i) => {
-    const n = nextStopOf(T), cur = S.t[T.id].cur;
+    const n = nextStopOf(T), cur = S.t[T.id].cur, open = hasDest(T), first = !S.dests.length;
+    if (!open) return `<button class="poster ${T.id} ${first ? 'choose-dest' : 'locked-dest'}" data-dest="${i}">
+      <span class="poster-native" lang="${T.lang}">${T.native}</span>
+      <span class="poster-en">${T.country}</span>
+      <span class="poster-art">${paint(T.hero)}</span>
+      <span class="poster-foot"><span class="lv">${first ? 'Begin your journey here' : 'Fly here to explore'}</span><span>${first ? '36 souvenirs' : `${COIN}${nextTicket()}`}</span></span>
+      <span class="poster-go">${first ? 'Start here' : '✈ Fly'}</span>
+    </button>`;
     return `<button class="poster ${T.id}" data-dest="${i}">
       <span class="poster-native" lang="${T.lang}">${T.native}</span>
       <span class="poster-en">${T.country}</span>
@@ -847,7 +969,15 @@ function renderHome() {
       <span class="poster-go">${cur ? 'Continue' : stopsDone(T) ? 'Keep going' : 'Start'}</span>
     </button>`;
   }).join('');
-  $$('[data-dest]').forEach(b => b.onclick = () => openMap(+b.dataset.dest));
+  $$('[data-dest]').forEach(b => b.onclick = () => destTap(+b.dataset.dest));
+  setTimeout(() => {
+    if ($('#home').hidden) return;
+    coach('home', '.poster', S.dests.length ? 'Pick a place to visit' : 'Pick where to begin');
+    if ($('#market-btn') && sparesCount()) coach('market', '#market-btn', 'Share spares for coins');
+    if (S.dests.length && S.dests.length < THEMES.length && S.coins >= nextTicket()) coach('fly', '.poster.locked-dest', 'You can fly here now!');
+    if ($('#home-check-btn')) coach('check', '#home-check-btn', 'Remember these · +1 each');
+    if (myStops() > 0) coach('trophy', '#home-hud [data-board]', 'See your rank', { place: 'below' });
+  }, 540);
   wire();
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -871,7 +1001,7 @@ function openMap(ti) {
     const right = pts[s][0] > 50;
     return `<li class="stop ${right ? 'r' : 'l'} ${open ? '' : 'locked'} ${done ? 'done' : ''} ${isHere ? 'here' : ''} ${s === 6 ? 'wander' : ''}" style="top:${pts[s][1]}px;${right ? `right:${100 - pts[s][0]}%` : `left:${pts[s][0]}%`}">
       <button ${open ? '' : 'disabled'} data-stop="${s}" aria-label="${s === 6 ? '' : `Stop ${s + 1}, `}${stopName(T, s)}">
-        <span class="node">${open ? paint(art) : `<span class="lock">${ICON.lock}</span>`}${done ? '<i class="tick">✓</i>' : ''}${isHere ? `<span class="me-pin">${paint(S.avatar, 'flat')}</span>` : ''}</span>
+        <span class="node">${open ? paint(art) : `<span class="lock">${ICON.lock}</span>`}${done ? '<i class="tick">✓</i>' : ''}${isHere ? `<span class="me-pin">${avatarArt()}</span>` : ''}</span>
         <span class="stop-text"><small>${s === 6 ? 'After the journey' : `Stop ${s + 1}`}</small><b>${stopName(T, s)}</b><em>${sub}</em></span>
       </button></li>`;
   }).join('');
@@ -885,6 +1015,7 @@ function openMap(ti) {
   $$('[data-stop]').forEach(b => b.onclick = () => startLevel(ti, +b.dataset.stop));
   wire(); show('map');
   const h = $('.stop.here'); if (h && here > 1) requestAnimationFrame(() => h.scrollIntoView({ block: 'center' }));
+  setTimeout(() => { if (!$('#map').hidden && $('.stop.here .node')) coach('map', '.stop.here .node', here === 6 ? 'Wander freely' : 'Start here'); }, 540);
 }
 $('#map-back').onclick = () => { renderHome(); show('home'); };
 
@@ -918,7 +1049,8 @@ function startLevel(ti, s, fresh = false) {
   paintCards(); hud(); wire();
   say(G.matched.length ? 'Welcome back. Your board was saved.' : s > 1 && s < 6 ? `Shorter peek here: ${STOP_PEEK[s]} seconds.` : 'Find the pairs. No rush.');
   show('game');
-  if (!resumed) { const due = dueReviews().slice(0, 2); if (due.length) { locked = true; setTimeout(() => memoryCheck(due, () => { locked = false; hud(); say('Now, find the pairs.'); }, 'Before this stop'), 350); } }
+  if (!(dueReviews().length && !resumed)) setTimeout(tipBoard, 1080);
+  if (!resumed) { const due = dueReviews().slice(0, 2); if (due.length) { locked = true; setTimeout(() => memoryCheck(due, () => { locked = false; hud(); say('Now, find the pairs.'); tipBoard(); }, 'Before this stop'), 350); } }
 }
 function paintCards() {
   $$('.card').forEach((c, i) => {
@@ -944,19 +1076,20 @@ function flip(i) {
   const a = G.deck[first], b = G.deck[second], r = round, ci = second;
   if (a === b) {
     G.matched.push(a); G.pts += MATCH_PTS; S.score += MATCH_PTS;
-    if (!journal.includes(a)) { journal.push(a); store('ld-journal', journal); }
+    const isSpare = journal.includes(a);
+    if (!isSpare) { journal.push(a); store('ld-journal', journal); } else S.spares[a] = (S.spares[a] || 0) + 1;
     persist();
     setTimeout(() => {
       if (r !== round) return;
       sfx.match();
       $$('.card').forEach((c, j) => { if (G.deck[j] === a) { c.classList.add('pop'); setTimeout(() => c.classList.remove('pop'), 600); } });
       fly(`+${MATCH_PTS}`, $(`[data-i="${ci}"]`));
-      first = second = null; paintCards(); hud(); say('A little connection, found.');
+      first = second = null; paintCards(); hud(); say(isSpare ? 'A spare souvenir for the market!' : 'A little connection, found.');
       setTimeout(() => { if (r === round) challenge(a); }, 750);
     }, 360);
   } else {
     persist();
-    setTimeout(() => { if (r !== round) return; sfx.miss(); first = second = null; locked = false; paintCards(); hud(); say('Not quite. Try another pair.'); }, 950);
+    setTimeout(() => { if (r !== round) return; sfx.miss(); first = second = null; locked = false; paintCards(); hud(); say('Not quite. Try another pair.'); if (!G.peeked && G.moves >= 2) coach('peek', '#peek', 'Stuck? Peek once'); }, 950);
   }
 }
 
@@ -1005,7 +1138,7 @@ function challenge(k) {
   ov.innerHTML = `<div class="note" role="dialog" aria-modal="true" aria-labelledby="ch-title">
     <span class="tape" aria-hidden="true"></span>
     <div class="note-head"><div class="note-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</div><div><p class="nat" lang="${T.lang}" id="ch-title">${nat}</p><p class="en">${en}</p>${tierTag(k)}</div></div>
-    <p class="story">${story}</p>
+    <p class="story" id="ch-story">${BLURB[k] || story}</p>
     <div class="bonus-row"><span class="bonus-ribbon">★ Bonus challenge</span><span class="bonus-hint">Answer right to win</span></div>
     <div class="q-row"><p class="q">${q}</p><span class="worth" aria-label="Bonus: worth ${QUIZ_PTS} points"><span class="burst" aria-hidden="true"></span><span class="coin"><b>+${QUIZ_PTS}</b><small>points</small></span></span></div>
     ${answers.map((a, i) => `<button class="answer" data-a="${i}"><span class="mark" aria-hidden="true"></span>${a}</button>`).join('')}
@@ -1013,6 +1146,7 @@ function challenge(k) {
   </div>`;
   ov.hidden = false; requestAnimationFrame(() => ov.classList.add('in'));
   $('#skip').focus({ preventScroll: true });
+  setTimeout(() => coach('bonus', '.note .worth', 'Right answer = +2', { tap: false }), 600);
   let answered = false;
   $$('[data-a]').forEach(b => b.onclick = () => {
     if (answered) return; answered = true;
@@ -1023,6 +1157,7 @@ function challenge(k) {
     if (ok) { G.right++; G.pts += QUIZ_PTS; S.score += QUIZ_PTS; persist(); note(988, 0, .3, .025); note(1319, .08, .45, .025); buzz([10, 30, 10]); fly(`+${QUIZ_PTS} bonus!`, $('.worth'), 'bonus'); $('.worth').classList.add('won'); $('.bonus-ribbon').textContent = '★ Bonus won!'; $('.bonus-hint').textContent = ''; }
     else { $('.worth').classList.add('lost'); $('.bonus-hint').textContent = 'No bonus this time'; }
     $('.feedback').classList.toggle('win', ok);
+    const st = $('#ch-story'); if (st && BLURB[k]) { st.textContent = story; st.classList.add('revealed'); }
     $('.feedback').textContent = ok ? `+${QUIZ_PTS} bonus points!` : `It’s “${answers[correct]}.” Something new learned.`;
     $('#skip').remove();
     const bar = document.createElement('span'); bar.className = 'auto-bar'; bar.setAttribute('aria-hidden', 'true');
@@ -1059,6 +1194,7 @@ function levelDone() {
   const stars = starsFor(g, P), prevStars = st.stars[s] || 0;
   if (s < 6) { st.done[s] = Math.max(prev ?? 0, g.pts); st.stars[s] = Math.max(prevStars, stars); } else st.wander++;
   const reward = firstTime ? REWARDS[T.id][s] : null;
+  const newWear = ownedWear().filter(k => !S.seenWear.includes(k)); S.seenWear.push(...newWear);
   if (reward && !S.unlocked.includes(reward)) S.unlocked.push(reward);
   const prevAvg = avg(counted().slice(-5).map(m => m.score));
   const mem = analyze(g); S.mem.push(mem); if (S.mem.length > 80) S.mem.splice(0, S.mem.length - 80);
@@ -1067,6 +1203,7 @@ function levelDone() {
   pushScore();
   const rankAfter = myRank();
   const journeyEnd = firstTime && stopsDone(T) === 6;
+  const coinsEarned = s === 6 ? 6 + 3 * stars : 8 + 4 * stars; addCoins(coinsEarned);
   const next = s < 5 ? s + 1 : 6;
   const title = s === 6 ? 'A lovely wander.' : journeyEnd ? `Your ${T.country} journey, complete.` : `${stopName(T, s)}, collected.`;
   const nextLabel = s === 6 ? 'Wander again' : next === 6 ? 'Start a free wander' : `Next stop · ${stopName(T, next)}`;
@@ -1080,9 +1217,11 @@ function levelDone() {
     <div class="stars" role="img" aria-label="${stars} of 3 stars">${[0, 1, 2].map(i => `<span class="big-star ${i < stars ? 'earned' : ''}" style="--d:${450 + i * 280}ms">${ICON.star}</span>`).join('')}</div>
     <p class="star-tip hand">${stars > prevStars && prevStars ? 'New best rating! ' : ''}${tip}</p>
     <div class="earned">${ICON.star}<b id="count">+0</b><span>points${prev !== undefined && g.pts > prev ? ', a new best' : ''}</span></div>
+    <div class="earned coins-earned">${COIN}<b>+${coinsEarned}</b><span>travel coins${S.dests.length < THEMES.length ? ` · ${Math.max(0, nextTicket() - S.coins) ? `${nextTicket() - S.coins} to your next flight` : 'enough for a flight!'}` : ''}</span></div>
     ${memCard(mem, prevAvg)}
     ${rankLine ? `<button class="rank-line" id="rank-line">${rankLine}<span aria-hidden="true">›</span></button>` : ''}
     ${reward ? `<div class="reward"><span class="reward-art">${paint(reward)}</span><span><small>New avatar unlocked</small><b lang="${T.lang}">${LABEL[reward][0]}</b><em>${LABEL[reward][1]}</em></span><button class="btn small" id="wear">Wear it</button></div>` : ''}
+    ${newWear.length ? `<div class="reward costume"><span class="reward-art tall">${travelerImg({ ...S.look, [WEAR[newWear[0]][0]]: newWear[0] }, false)}</span><span><small>New costume${newWear.length > 1 ? 's' : ''}!</small><b lang="${langOf(newWear[0])}">${LABEL[newWear[0]][0]}</b><em>${newWear.length > 1 ? `and ${newWear.length - 1} more` : LABEL[newWear[0]][1]}</em></span><button class="btn small" id="try-on">Try it on</button></div>` : ''}
     ${journeyEnd ? `<p class="hand journey-note">Six stops, thirty-six little stories. Free wander is now open on the map: ten pairs from anywhere in ${T.country}, as often as you like.</p>` : ''}
     <p class="list-title">What you collected${keys.some(k => tierOf(k) >= 2) ? ` <span class="rare-count">${keys.filter(k => tierOf(k) >= 2).length} rare find${keys.filter(k => tierOf(k) >= 2).length > 1 ? 's' : ''}!</span>` : ''}</p>
     <ul class="poster-list">${byTier(keys).map(k => plItem(k, T.lang)).join('')}</ul>
@@ -1090,10 +1229,12 @@ function levelDone() {
   </div>`;
   ov.hidden = false; requestAnimationFrame(() => ov.classList.add('in'));
   celebrate(stars, g.pts);
+  setTimeout(() => coach('stars', '#done .stars', 'Up to 3 stars per stop', { place: 'below', tap: false }), 2760);
   $('#next-level').onclick = () => { closeDone(); startLevel(ti, next); };
   $('#to-map').onclick = () => { closeDone(); openMap(ti); };
   if ($('#rank-line')) $('#rank-line').onclick = () => { closeDone(); openBoard(() => openMap(ti)); };
   if ($('#to-insights')) $('#to-insights').onclick = () => { closeDone(); openInsights(() => openMap(ti)); };
+  if ($('#try-on')) $('#try-on').onclick = () => { const k = newWear[0], slot = WEAR[k][0]; S.look[slot] = k; S.look = cleanLook(S.look); persist(); pushScore(); closeDone(); openWardrobe(slot, () => openMap(ti)); };
   if ($('#wear')) $('#wear').onclick = e => { S.avatar = reward; persist(); pushScore(); e.target.textContent = 'Wearing'; e.target.disabled = true; };
 }
 // Orchestrated reward moment: stamp → confetti → stars one by one → points count up
@@ -1278,12 +1419,264 @@ function renderInsights() {
 }
 $('#insights-back').onclick = () => insightsBack ? insightsBack() : (renderProfile(), show('profile'));
 
+// ---------- Traveler avatar + wardrobe of collected costumes ----------
+const SKINS = ['#f6d7bf', '#e9b98f', '#c98e63', '#8d5b3c'];
+const HAIRS = ['bob', 'bun', 'short'];
+const HAIR_COLORS = ['#3b2f2a', '#7a4b2e', '#b8863b'];
+const SLOTS = [['outfit', 'Outfit'], ['head', 'Head'], ['neck', 'Neck'], ['feet', 'Feet'], ['hold', 'Hold'], ['me', 'Me']];
+const WEAR = {
+  // outfits
+  kimono: ['outfit', o => `<path d="M40 64Q60 58 80 64L84 140H36Z" fill="#f4a6a8"/><path d="M42 66L24 76L26 100L40 98Z" fill="#f4a6a8"/><path d="M78 66L96 76L94 100L80 98Z" fill="#f4a6a8"/><path d="M52 62L60 82L68 62" fill="#fbf3e6"/><path d="M60 82L63 140" fill="none"/>${[[46, 112], [72, 120], [50, 132], [30, 86], [90, 88], [70, 74]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.6" fill="#fff6f0" stroke="none"/>`).join('')}<rect x="39" y="84" width="42" height="12" fill="#f2c14e"/><path d="M39 90H81" fill="none" stroke="#d9473f" stroke-width="1.6"/>`],
+  yukata: ['outfit', o => `<path d="M40 64Q60 58 80 64L83 138H37Z" fill="#6f8fc4"/><path d="M42 66L26 76L28 98L40 96Z" fill="#6f8fc4"/><path d="M78 66L94 76L92 98L80 96Z" fill="#6f8fc4"/><path d="M52 62L60 80L68 62" fill="#f6f1e2"/><path d="M60 80L62 138" fill="none"/>${[[46, 108], [72, 116], [52, 128], [33, 84], [88, 86], [66, 130], [44, 72]].map(([x, y]) => `<path d="M${x - 3} ${y}q3-4 6 0q-3 4-6 0z" fill="#f6f1e2" stroke="none"/>`).join('')}<rect x="39" y="84" width="42" height="10" fill="#e2574c"/>`],
+  aodai: ['outfit', o => `<path d="M47 104L48 142H58L60 108L62 142H72L73 104Z" fill="#fbf8f0"/><path d="M42 64Q60 58 78 64L82 104L78 134H64L60 108L56 134H42L38 104Z" fill="#e2574c"/><path d="M42 66L30 100L36 103L46 78Z" fill="#e2574c"/><path d="M78 66L90 100L84 103L74 78Z" fill="#e2574c"/><rect x="54" y="59" width="12" height="6" rx="2" fill="#e2574c"/>${[[52, 80], [66, 92], [56, 110], [70, 120], [48, 124]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#f2c14e" stroke="none"/><circle cx="${x}" cy="${y}" r="1.2" fill="#fff3c4" stroke="none"/>`).join('')}`],
+  aotuthan: ['outfit', o => `<path d="M44 98L40 140H80L76 98Z" fill="#4a3a30"/><path d="M50 64H70L68 94H52Z" fill="#d9473f"/><path d="M42 64Q48 60 52 62L54 128H42L38 100Z" fill="#9c6b45"/><path d="M78 64Q72 60 68 62L66 128H78L82 100Z" fill="#9c6b45"/><path d="M42 66L31 100L37 103L46 78Z" fill="#9c6b45"/><path d="M78 66L89 100L83 103L74 78Z" fill="#9c6b45"/><rect x="44" y="92" width="32" height="6" fill="#5aa97c"/><path d="M57 98L54 118M63 98L66 118" fill="none" stroke="#5aa97c" stroke-width="2.4"/>`],
+  tw_hakkacloth: ['outfit', o => `<path d="M40 66Q60 60 80 66L82 110H38Z" fill="#d9473f"/><path d="M42 68L32 100L38 103L47 80Z" fill="#d9473f"/><path d="M78 68L88 100L82 103L73 80Z" fill="#d9473f"/><path d="M60 64V110" fill="none"/>${[[49, 80, 6], [71, 92, 7], [50, 100, 4.5], [72, 74, 4]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#f2a7c0"/><circle cx="${x}" cy="${y}" r="${r * .45}" fill="#f7d56b" stroke="none"/>`).join('')}${[[56, 76], [66, 84], [44, 92]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="2" fill="#5aa97c" transform="rotate(30 ${x} ${y})"/>`).join('')}`],
+  // head
+  nonla: ['head', o => `<path d="M22 34L60 2L98 34Q60 42 22 34Z" fill="#e8cf8a"/><path d="M60 2L40 36M60 2L50 38M60 2L70 38M60 2L80 36" fill="none" stroke="#c9a85a" stroke-width=".8"/><path d="M44 38Q60 68 76 38" fill="none" stroke="#e86f96" stroke-width="1.6"/>`],
+  kanzashi: ['head', o => `<path d="M72 30L84 14" fill="none" stroke="#c99b5c" stroke-width="2"/>${[[82, 20, 5], [76, 26, 4], [88, 26, 3.6]].map(([x, y, r]) => [0, 72, 144, 216, 288].map(a => `<ellipse cx="${x}" cy="${y - r * .55}" rx="${r * .42}" ry="${r * .62}" fill="#f2a7c0" transform="rotate(${a} ${x} ${y})"/>`).join('') + `<circle cx="${x}" cy="${y}" r="${r * .3}" fill="#f2c14e" stroke="none"/>`).join('')}<path d="M84 28V42M88 30V40M80 30V38" fill="none" stroke="#d9473f" stroke-width=".9"/><circle cx="84" cy="43" r="1.6" fill="#d9473f"/><circle cx="88" cy="41" r="1.4" fill="#f2c14e"/>`],
+  // neck
+  khanran: ['neck', o => `<path d="M44 60Q60 72 76 60L78 67Q60 80 42 67Z" fill="#f6f1e2"/>${Array.from({ length: 9 }, (_, i) => `<rect x="${44 + i * 3.8}" y="${62 + (i % 2) * 3 + Math.abs(4 - i) * -.4}" width="2.6" height="2.6" fill="#3d372f" stroke="none"/>`).join('')}<path d="M64 70L72 94L64 96L60 74Z" fill="#f6f1e2"/>${[[64, 78], [66, 84], [68, 90], [62, 86]].map(([x, y]) => `<rect x="${x}" y="${y}" width="2.6" height="2.6" fill="#3d372f" stroke="none"/>`).join('')}`],
+  // feet
+  geta: ['feet', o => `<rect x="44" y="142" width="17" height="5" rx="1" fill="#c99b5c"/><rect x="59" y="142" width="17" height="5" rx="1" fill="#c99b5c"/>${[46, 55, 61, 70].map(x => `<rect x="${x}" y="147" width="4" height="4" fill="#a57b42"/>`).join('')}<path d="M48 142L52 137L56 142M64 142L68 137L72 142" fill="none" stroke="#d9473f" stroke-width="1.8"/>`],
+  tw_slippers: ['feet', o => `<ellipse cx="52" cy="145" rx="9" ry="4" fill="#fbfbf6"/><ellipse cx="68" cy="145" rx="9" ry="4" fill="#fbfbf6"/><path d="M45 143Q52 136 59 143M61 143Q68 136 75 143" fill="#3e88b8" stroke-width="1"/>`],
+  // hold (right hand at 89,104)
+  koinobori: ['hold', o => `<path d="M89 106L93 26" fill="none" stroke="#8a6a48" stroke-width="2.2"/><path d="M93 30Q112 24 128 34Q112 44 93 44Z" fill="#e2574c"/><circle cx="99" cy="35" r="2.4" fill="#fff"/><circle cx="99" cy="35" r="1" fill="#3d372f" stroke="none"/><path d="M106 32q3 3 0 6M112 32q3 3 0 6M118 32q3 3 0 6" fill="none" stroke="#f6c2a0" stroke-width=".9"/><path d="M92 48Q108 44 120 52Q108 60 92 60Z" fill="#3e88b8"/><circle cx="97" cy="53" r="1.8" fill="#fff"/>`],
+  starlantern: ['hold', o => `<path d="M89 106L104 74" fill="none" stroke="#8a6a48" stroke-width="2"/><path d="M106 52l4 9 10 1-7.5 6.5 2.5 10-9-5.5-9 5.5 2.5-10L92 62l10-1z" fill="#e2574c"/><circle cx="106" cy="66" r="3" fill="#f7d56b" stroke="none"/><path d="M106 79v6M103 80l-1 5M109 80l1 5" fill="none" stroke="#f2c14e" stroke-width="1"/>`],
+  lantern: ['hold', o => `<path d="M89 104V112" fill="none" stroke="#3d372f" stroke-width="1"/><rect x="83" y="111" width="12" height="3" fill="#3d372f"/><ellipse cx="89" cy="124" rx="10" ry="11" fill="#f2a33a"/><path d="M83 116q6 8 0 16M95 116q-6 8 0 16" fill="none" stroke="#d9473f" stroke-width=".8"/><rect x="83" y="134" width="12" height="3" fill="#3d372f"/><path d="M89 137v7" fill="none" stroke="#d9473f" stroke-width="1.6"/>`],
+  tw_umbrella: ['hold', o => `<path d="M89 106L104 30" fill="none" stroke="#8a6a48" stroke-width="2"/><path d="M76 40Q100 2 132 34Q124 30 118 36Q112 30 104 34Q96 30 90 37Q84 34 76 40Z" fill="#f2b34e"/>${[[94, 22], [108, 18], [120, 26], [100, 30]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#e2574c" stroke="none"/>`).join('')}<path d="M104 14L84 38M104 14L104 34M104 14L122 34" fill="none" stroke="#c48a2e" stroke-width=".7"/>`],
+  tw_gajibag: ['hold', o => `<path d="M83 110Q89 96 95 110" fill="none" stroke="#d9473f" stroke-width="2.2"/>${['#d9473f', '#3e88b8', '#5aa97c', '#fbf8f2', '#e9a04a'].map((c, i) => `<rect x="${79 - i * .2}" y="${108 + i * 4.4}" width="${20 + i * .4}" height="4.4" fill="${c}" stroke="none"/>`).join('')}<path d="M79 108H99L100 130H78Z" fill="none"/>`],
+  tw_bubbletea: ['hold', o => `<path d="M82 92H97L95 116H84Z" fill="#e3c49a"/>${[[86, 112], [90, 113], [93, 111], [88, 108], [92, 108]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.7" fill="#4d3a2e" stroke="none"/>`).join('')}<path d="M81 92Q89 86 98 92Z" fill="#f6f1e6"/><path d="M91 90L96 76" fill="none" stroke="#e2574c" stroke-width="2.6"/>`],
+  tw_incensebag: ['hold', o => `<path d="M89 104V112" fill="none" stroke="#c0392b" stroke-width="1.2"/><rect x="83" y="112" width="12" height="15" rx="2" fill="#d9473f"/><path d="M89 115l3 3-3 3-3-3z" fill="#f2c14e"/>`]
+};
+const WEAR_KEYS = Object.keys(WEAR);
+const ownedWear = () => WEAR_KEYS.filter(k => journal.includes(k));
+function cleanLook(l) {
+  const o = l && typeof l === 'object' ? l : {};
+  const pick = (slot, v) => WEAR[v] && WEAR[v][0] === slot ? v : '';
+  return {
+    skin: Number.isInteger(o.skin) && SKINS[o.skin] ? o.skin : 0, hair: HAIRS.includes(o.hair) ? o.hair : 'bob',
+    hairc: Number.isInteger(o.hairc) && HAIR_COLORS[o.hairc] ? o.hairc : 0,
+    outfit: pick('outfit', o.outfit), head: pick('head', o.head), neck: pick('neck', o.neck), feet: pick('feet', o.feet), hold: pick('hold', o.hold)
+  };
+}
+S.look = cleanLook(S.look);
+if (!Array.isArray(S.seenWear)) S.seenWear = ownedWear();
+function travelerSVG(look, crop) {
+  const L = cleanLook(look), skin = SKINS[L.skin], hc = HAIR_COLORS[L.hairc];
+  const backHair = L.hair === 'bob' ? `<path d="M37 46Q36 18 60 18Q84 18 83 46V62Q78 60 76 52H44Q42 60 37 62Z" fill="${hc}"/>`
+    : L.hair === 'bun' ? `<circle cx="60" cy="16" r="9" fill="${hc}"/><path d="M38 46Q38 20 60 20Q82 20 82 46Z" fill="${hc}"/>` : '';
+  const frontHair = L.hair === 'short' ? `<path d="M38 42Q38 18 60 19Q82 18 82 42Q76 30 66 31Q58 26 50 32Q42 32 38 42Z" fill="${hc}"/>`
+    : `<path d="M39 40Q42 21 60 21Q78 21 81 40Q72 32 64 33Q60 28 54 33Q46 32 39 40Z" fill="${hc}"/>`;
+  const wear = slot => L[slot] ? WEAR[L[slot]][1](L) : '';
+  const body = `${backHair}
+    <path d="M46 104L48 142H58L60 106L62 142H72L74 104Z" fill="#8fb3d9"/>
+    ${L.feet ? wear('feet') : `<ellipse cx="53" cy="144" rx="7" ry="3.5" fill="#6b4f3a"/><ellipse cx="67" cy="144" rx="7" ry="3.5" fill="#6b4f3a"/>`}
+    <path d="M33 82L28 102Q30 107 34 104L39 86Z" fill="${skin}"/><path d="M87 82L92 102Q90 107 86 104L81 86Z" fill="${skin}"/>
+    <rect x="55" y="58" width="10" height="8" fill="${skin}"/>
+    ${L.outfit ? wear('outfit') : `<path d="M42 66Q60 60 78 66L80 108H40Z" fill="#f6f1e2"/><path d="M42 66L32 84L40 88L46 76Z" fill="#f6f1e2"/><path d="M78 66L88 84L80 88L74 76Z" fill="#f6f1e2"/><path d="M52 64Q60 70 68 64" fill="none"/>`}
+    ${wear('neck')}
+    <circle cx="39.5" cy="45" r="4" fill="${skin}"/><circle cx="80.5" cy="45" r="4" fill="${skin}"/>
+    <circle cx="60" cy="42" r="21" fill="${skin}"/>
+    <ellipse cx="52" cy="45" rx="1.9" ry="2.5" fill="#3d372f" stroke="none"/><ellipse cx="68" cy="45" rx="1.9" ry="2.5" fill="#3d372f" stroke="none"/>
+    <circle cx="47" cy="51" r="3.6" fill="#f2a7a6" opacity=".7" stroke="none"/><circle cx="73" cy="51" r="3.6" fill="#f2a7a6" opacity=".7" stroke="none"/>
+    <path d="M56 53Q60 57 64 53" fill="none"/>
+    ${frontHair}${wear('head')}
+    <circle cx="31" cy="104" r="4.6" fill="${skin}"/><circle cx="89" cy="104" r="4.6" fill="${skin}"/>
+    ${wear('hold')}`;
+  const vb = crop ? '22 0 76 76' : '-14 0 148 156';
+  return `<svg viewBox="${vb}" width="${crop ? 152 : 296}" height="${crop ? 152 : 312}"><g filter="url(#crayon)" stroke="#4a4237" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`;
+}
+const travCache = new Map();
+function travelerSrc(look, crop) {
+  const id = JSON.stringify(cleanLook(look)) + (crop ? 'c' : '');
+  if (!travCache.has(id)) travCache.set(id, svgURL(travelerSVG(look, crop)));
+  return travCache.get(id);
+}
+const travelerImg = (look, crop, cls = '') => `<img class="art ${cls}" src="${travelerSrc(look, crop)}" alt="" draggable="false">`;
+function avatarArt(who = S) { return who.avatar === 'traveler' ? travelerImg(who.look || S.look, true, 'flat') : paint(who.avatar, 'flat'); }
+function whereToFind(k) {
+  for (const T2 of THEMES) { const s = T2.stops.findIndex(st => st.keys.includes(k)); if (s >= 0) return `${T2.country} · ${T2.stops[s].name}`; }
+  return '';
+}
+
+let wardSlot = 'outfit', wardBack = null;
+function openWardrobe(slot, back) {
+  if (slot) wardSlot = slot;
+  wardBack = back || (() => { renderProfile(); show('profile'); });
+  renderWardrobe(); show('wardrobe');
+}
+function renderWardrobe(popped) {
+  const own = ownedWear();
+  const tabs = SLOTS.map(([id, name]) => {
+    const n = id === 'me' ? '' : WEAR_KEYS.filter(k => WEAR[k][0] === id && own.includes(k)).length + '/' + WEAR_KEYS.filter(k => WEAR[k][0] === id).length;
+    return `<button role="tab" aria-selected="${wardSlot === id}" data-slot="${id}">${name}${n ? `<small>${n}</small>` : ''}</button>`;
+  }).join('');
+  let grid;
+  if (wardSlot === 'me') {
+    grid = `<p class="ward-label">Skin</p><div class="swatches">${SKINS.map((c, i) => `<button class="sw" aria-label="Skin tone ${i + 1}" aria-pressed="${S.look.skin === i}" data-skin="${i}" style="background:${c}"></button>`).join('')}</div>
+      <p class="ward-label">Hair</p><div class="ward-grid three">${HAIRS.map(h => `<button class="ward-item" aria-pressed="${S.look.hair === h}" data-hair="${h}">${travelerImg({ ...S.look, hair: h, head: '' }, true)}<span>${{ bob: 'Bob', bun: 'Bun', short: 'Short' }[h]}</span></button>`).join('')}</div>
+      <p class="ward-label">Hair color</p><div class="swatches">${HAIR_COLORS.map((c, i) => `<button class="sw" aria-label="Hair color ${i + 1}" aria-pressed="${S.look.hairc === i}" data-hairc="${i}" style="background:${c}"></button>`).join('')}</div>`;
+  } else {
+    const keys = WEAR_KEYS.filter(k => WEAR[k][0] === wardSlot);
+    grid = `<div class="ward-grid"><button class="ward-item none" aria-pressed="${!S.look[wardSlot]}" data-wear="">${'<span class="none-mark">—</span>'}<span>None</span></button>${keys.map(k => own.includes(k)
+      ? `<button class="ward-item" aria-pressed="${S.look[wardSlot] === k}" data-wear="${k}">${paint(k, 'flat')}<span lang="${langOf(k)}">${LABEL[k][0]}</span><small>${LABEL[k][1]}</small></button>`
+      : `<div class="ward-item locked" aria-label="Locked: find it in ${whereToFind(k)}"><span class="lock-ico">${ICON.lock}</span><span>Not found yet</span><small>${whereToFind(k)}</small></div>`).join('')}</div>`;
+  }
+  $('#wardrobe-body').innerHTML = `
+    <div class="stage ${popped ? 'pop' : ''}"><span class="rug" aria-hidden="true"></span>${travelerImg(S.look, false, 'traveler-big')}</div>
+    <p class="ward-count">${own.length} of ${WEAR_KEYS.length} costumes collected</p>
+    ${S.avatar !== 'traveler' ? `<button class="btn primary" id="use-traveler">Use as my avatar</button>` : ''}
+    <div class="ward-tabs" role="tablist">${tabs}</div>
+    ${grid}`;
+  $$('[data-slot]').forEach(b => b.onclick = () => { wardSlot = b.dataset.slot; renderWardrobe(); });
+  const set = (k, v) => { S.look[k] = v; S.look = cleanLook(S.look); persist(); pushScore(); note(880, 0, .18, .02); renderWardrobe(true); };
+  $$('[data-wear]').forEach(b => b.onclick = () => set(wardSlot, b.dataset.wear));
+  $$('[data-skin]').forEach(b => b.onclick = () => set('skin', +b.dataset.skin));
+  $$('[data-hair]').forEach(b => b.onclick = () => set('hair', b.dataset.hair));
+  $$('[data-hairc]').forEach(b => b.onclick = () => set('hairc', +b.dataset.hairc));
+  if ($('#use-traveler')) $('#use-traveler').onclick = () => { S.avatar = 'traveler'; persist(); pushScore(); renderWardrobe(true); };
+}
+$('#wardrobe-back').onclick = () => wardBack ? wardBack() : (renderProfile(), show('profile'));
+$('#wardrobe-random').onclick = () => {
+  const own = ownedWear(), pickOne = slot => { const opts = own.filter(k => WEAR[k][0] === slot); return opts.length && Math.random() > .2 ? opts[Math.floor(Math.random() * opts.length)] : ''; };
+  S.look = cleanLook({ ...S.look, outfit: pickOne('outfit'), head: pickOne('head'), neck: pickOne('neck'), feet: pickOne('feet'), hold: pickOne('hold') });
+  persist(); pushScore(); note(660, 0, .2, .02); note(990, .08, .3, .02); renderWardrobe(true);
+};
+
+// ---------- Travel economy: coins, spares, Souvenir Market, flights ----------
+const COIN = '<svg class="coin-ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#f2c14e" stroke="#4a4237" stroke-width="1.3"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#c9922e" stroke-width="1"/><path d="M7.6 12.6l8.8-4-3 8.2-1.6-3.2z" fill="#fffaf1" stroke="#4a4237" stroke-width=".8" stroke-linejoin="round"/></svg>';
+const TIER_VALUE = [5, 12, 30, 80];
+const TICKETS = [120, 180];
+const COLLECTORS = [
+  ['Hana', 'tea lover from Kyoto', 'matcha'], ['Minh', 'lantern maker in Hội An', 'lantern'], ['Mei', 'night-market regular', 'tw_bubbletea'],
+  ['Kenji', 'kite enthusiast', 'koinobori'], ['Lan', 'retired teacher in Huế', 'nonla'], ['Ah-Hua', 'temple volunteer', 'tw_incensebag'],
+  ['Sora', 'museum curator', 'daruma'], ['Tuấn', 'coffee-shop owner', 'coffee'], ['Yu-Ting', 'tea farmer on Alishan', 'tw_oolong'], ['Aiko', 'origami teacher', 'origami']
+];
+if (!Number.isFinite(S.coins) || S.coins < 0) S.coins = THEMES.reduce((n, t) => n + stopsDone(t), 0) * 10;
+if (!S.spares || typeof S.spares !== 'object') S.spares = {};
+if (!Array.isArray(S.dests)) S.dests = THEMES.filter(t => stopsDone(t) || found(t) || S.t[t.id].cur).map(t => t.id);
+S.dests = S.dests.filter(id => THEMES.some(t => t.id === id));
+if (!S.at || !S.dests.includes(S.at)) S.at = S.dests[0] || null;
+const hasDest = T2 => S.dests.includes(T2.id);
+const nextTicket = () => TICKETS[Math.min(TICKETS.length - 1, Math.max(0, S.dests.length - 1))];
+const sparesCount = () => Object.values(S.spares).reduce((a, b) => a + (b > 0 ? b : 0), 0);
+const themeOf = k => THEMES.find(t => t.order.includes(k));
+function demandToday() { const d = Math.floor(Date.now() / 864e5); return THEMES[d % THEMES.length]; }
+function valueOf(k) { return Math.round(TIER_VALUE[tierOf(k)] * (themeOf(k) === demandToday() ? 1.5 : 1)); }
+function addCoins(n) { S.coins = Math.max(0, Math.round(S.coins + n)); persist(); $$('.coin-val').forEach(e => e.textContent = S.coins); }
+function coinPill(id = '') { return `<button class="score coins" ${id ? `id="${id}"` : ''} data-market aria-label="Souvenir market, ${S.coins} travel coins">${COIN}<span class="coin-val">${S.coins}</span></button>`; }
+
+// Choosing where to start, and flying on
+function destTap(i) {
+  const D = THEMES[i];
+  if (hasDest(D)) { S.at = D.id; persist(); openMap(i); return; }
+  if (!S.dests.length) {
+    sheet(`<div class="sheet-art">${paint(D.hero)}</div><h2>Begin in ${D.country}?</h2><p>Your passport starts here. The other places open up with a flight, paid for with travel coins you earn along the way.</p>
+      <button class="btn primary" id="begin-here">Start my journey in ${D.country}</button><button class="btn ghost" data-close>Look around first</button>`);
+    $('#begin-here').onclick = () => { S.dests = [D.id]; S.at = D.id; persist(); closeSheet(); setTimeout(() => openMap(i), 230); };
+    return;
+  }
+  const price = nextTicket(), short = price - S.coins;
+  if (short > 0) {
+    sheet(`<div class="ticket">${ticketArt(D, price)}</div><h2>${short} more coins to fly</h2><p>Finish stops to earn coins, or share your spare souvenirs with collectors at the market.</p>
+      <button class="btn primary" id="to-market">Visit the Souvenir market</button><button class="btn ghost" data-close>Maybe later</button>`);
+    $('#to-market').onclick = () => { closeSheet(); setTimeout(() => openMarket(), 230); };
+    return;
+  }
+  sheet(`<div class="ticket">${ticketArt(D, price)}</div><h2>Fly to ${D.country}?</h2><p>A ticket costs ${price} coins. You have ${S.coins}.</p>
+    <button class="btn primary" id="buy-ticket">Buy ticket · ${price}</button><button class="btn ghost" data-close>Not yet</button>`);
+  $('#buy-ticket').onclick = () => { closeSheet(); setTimeout(() => flyTo(D, price), 230); };
+}
+function ticketArt(D, price) {
+  const from = THEMES.find(t => t.id === S.at) || THEMES[0];
+  return `<div class="tk"><div class="tk-main"><small>Boarding pass</small><b><span lang="${from.lang}">${from.native}</span> → <span lang="${D.lang}">${D.native}</span></b><em>${from.country} to ${D.country}</em></div><div class="tk-stub">${COIN}<b>${price}</b></div></div>`;
+}
+const MAPPOS = { jp: [300, 120], tw: [200, 250], vn: [96, 330] };
+function flyTo(D, price) {
+  const from = THEMES.find(t => t.id === S.at) || THEMES[0];
+  addCoins(-price); S.dests.push(D.id); S.at = D.id; persist();
+  const [x0, y0] = MAPPOS[from.id], [x1, y1] = MAPPOS[D.id], cx = (x0 + x1) / 2 + 60, cy = Math.min(y0, y1) - 70;
+  const isles = THEMES.map(t => { const [x, y] = MAPPOS[t.id]; return `<g><ellipse cx="${x}" cy="${y}" rx="44" ry="26" fill="${t.id === D.id ? '#cfe8c0' : '#e8e0c8'}" stroke="#4a4237" stroke-width="1.4"/><text x="${x}" y="${y + 5}" text-anchor="middle" font-size="16" fill="#3d372f" stroke="none" font-family="LXGW WenKai TC,Klee One,Patrick Hand,sans-serif">${t.native}</text></g>`; }).join('');
+  const ov = $('#done');
+  ov.innerHTML = `<div class="flight"><svg viewBox="0 0 400 440" class="flight-map" aria-hidden="true"><rect width="400" height="440" rx="18" fill="#cfe6f2"/>${[60, 140, 220, 300, 380].map(y => `<path d="M0 ${y}q25-8 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0" fill="none" stroke="#e6f3fa" stroke-width="2"/>`).join('')}${isles}<path id="fpath" d="M${x0} ${y0}Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#3d372f" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/><g id="plane"><path d="M-14 0L14 -2L18 0L14 2Z M-2 -1L-8 -12L-3 -12L6 -1Z M-2 1L-8 12L-3 12L6 1Z M-14 0L-18 -6L-15 -6L-10 -1Z" fill="#fffaf1" stroke="#3d372f" stroke-width="1.3" stroke-linejoin="round"/></g></svg>
+    <div class="arrive" hidden><span class="stamp big-stamp" lang="${D.lang}">${D.native}<small>arrived</small></span><h2>Welcome to ${D.country}</h2><p class="hand">${D.motto} · ${D.mottoEn}</p><button class="btn primary" id="explore">Explore ${D.country}</button></div></div>`;
+  ov.hidden = false; requestAnimationFrame(() => ov.classList.add('in'));
+  note(392, 0, .6, .02); note(523, .3, .8, .02);
+  const path = $('#fpath'), plane = $('#plane'), L = path.getTotalLength(), dur = calm() ? 800 : 2600, t0 = performance.now();
+  const step = now => {
+    const p = Math.min(1, (now - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const a = path.getPointAtLength(e * L), b = path.getPointAtLength(Math.min(L, e * L + 1));
+    plane.setAttribute('transform', `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
+    if (p < 1) requestAnimationFrame(step);
+    else { $('.arrive').hidden = false; sfx.level(); $('#explore').onclick = () => { closeDone(); openMap(THEMES.indexOf(D)); }; }
+  };
+  requestAnimationFrame(step);
+}
+
+// Souvenir Market
+let marketBack = null, auction = null;
+function openMarket(back) { marketBack = back || (() => { renderHome(); show('home'); }); renderMarket(); show('market'); }
+function renderMarket() {
+  const keys = Object.keys(S.spares).filter(k => S.spares[k] > 0 && items[k]).sort((a, b) => valueOf(b) - valueOf(a));
+  const dd = demandToday();
+  $('#market-body').innerHTML = `
+    <div class="wallet">${COIN}<b class="coin-val">${S.coins}</b><span>travel coins</span></div>
+    ${S.dests.length < THEMES.length ? `<p class="next-ticket">Next ticket: ${nextTicket()} coins${S.coins >= nextTicket() ? ' · you can fly now!' : ` · ${nextTicket() - S.coins} to go`}</p>` : '<p class="next-ticket">Every destination is open. Coins still show your collector skills!</p>'}
+    <div class="demand"><span class="dm-ico" aria-hidden="true">✦</span><span>Collectors want <b>${dd.country}</b> souvenirs today · <b>+50%</b></span></div>
+    <h2 class="j-title">Your spares</h2>
+    ${keys.length ? `<ul class="poster-list spares">${keys.map(k => `<li><button data-sell="${k}"><span class="pl-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</span><span class="pl-text"><b lang="${langOf(k)}">${LABEL[k][0]}</b><small>${LABEL[k][1]}</small>${tierTag(k)}</span><span class="sp-meta"><b>×${S.spares[k]}</b><small>~${valueOf(k)}</small></span></button></li>`).join('')}</ul>`
+      : `<p class="ins-empty hand">No spares yet. Replay a finished stop or try Free wander: matching something you already own gives you a spare to share.</p>`}`;
+  $$('[data-sell]').forEach(b => b.onclick = () => startAuction(b.dataset.sell));
+  wire();
+}
+function startAuction(k) {
+  const run = { k, best: 0, who: null, done: false, timers: [] }; auction = run;
+  const base = valueOf(k), bidders = shuffle(COLLECTORS.slice()).slice(0, 2 + Math.floor(Math.random() * 3));
+  const nBids = 4 + Math.floor(Math.random() * 4);
+  const ov = $('#challenge'); closing = false;
+  ov.innerHTML = `<div class="note auction" role="dialog" aria-modal="true" aria-labelledby="au-title"><span class="tape" aria-hidden="true"></span>
+    <div class="note-head"><div class="note-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</div><div><p class="nat" lang="${langOf(k)}" id="au-title">${LABEL[k][0]}</p><p class="en">${LABEL[k][1]}</p>${tierTag(k)}</div></div>
+    <div class="bid-now"><small>Best offer</small><span>${COIN}<b id="best">—</b></span></div>
+    <ul class="bids" id="bids" aria-live="polite"><li class="waiting hand">Collectors are taking a look…</li></ul>
+    <div class="au-actions"><button class="btn primary" id="accept" disabled>Waiting for offers</button><button class="btn ghost" id="keep">Keep it</button></div></div>`;
+  ov.hidden = false; requestAnimationFrame(() => ov.classList.add('in'));
+  let price = Math.round(base * (.8 + Math.random() * .2)), t = 900;
+  for (let i = 0; i < nBids; i++) {
+    t += 1500 + Math.random() * 1500;
+    const c = bidders[i % bidders.length];
+    price = Math.max(price + 1, Math.round(price * (1.06 + Math.random() * .14)));
+    const offer = price;
+    run.timers.push(setTimeout(() => {
+      if (auction !== run || run.done) return;
+      run.best = offer; run.who = c;
+      const w = $('#bids .waiting'); if (w) w.remove();
+      $('#bids').insertAdjacentHTML('afterbegin', `<li class="bid">${`<span class="avatar">${paint(c[2], 'flat')}</span>`}<span class="who-col"><b>${c[0]}</b><small>${c[1]}</small></span><span class="pts">${offer}</span></li>`);
+      $('#best').textContent = offer; $('.bid-now').classList.remove('bump'); void $('.bid-now').offsetWidth; $('.bid-now').classList.add('bump');
+      note(700 + i * 40, 0, .12, .014);
+      const ac = $('#accept'); ac.disabled = false; ac.textContent = `Accept ${offer} coins`;
+    }, t));
+  }
+  run.timers.push(setTimeout(() => { if (auction === run && !run.done && run.who) $('#bids').insertAdjacentHTML('afterbegin', `<li class="settled hand">Offers have settled. ${run.who[0]}’s ${run.best} is the best.</li>`); }, t + 1800));
+  const end = () => { run.done = true; run.timers.forEach(clearTimeout); auction = null; const o = $('#challenge'); o.classList.remove('in'); setTimeout(() => { o.hidden = true; o.innerHTML = ''; }, 220); };
+  $('#keep').onclick = () => { end(); renderMarket(); };
+  $('#accept').onclick = () => {
+    if (!run.best) return;
+    const got = run.best, who = run.who; end();
+    S.spares[k] = Math.max(0, (S.spares[k] || 1) - 1); if (!S.spares[k]) delete S.spares[k];
+    addCoins(got); sfx.coin(); buzz([10, 30, 10]);
+    renderMarket();
+    const w = $('#market .wallet'); if (w) { w.classList.remove('bump'); void w.offsetWidth; w.classList.add('bump'); }
+    sheet(`<div class="sheet-art">${paint(k)}</div><h2>Shared with ${who[0]}</h2><p>Your spare ${LABEL[k][1]} found a happy home with a ${who[1]}. <b>+${got} travel coins.</b></p><button class="btn primary" data-close>Lovely</button>`);
+  };
+}
+$('#market-back').onclick = () => { if (auction) { auction.done = true; auction.timers.forEach(clearTimeout); auction = null; } marketBack ? marketBack() : (renderHome(), show('home')); };
+
 // ---------- Leaderboard ----------
 let DB = null, UID = null, board = [], boardState = 'loading', canWrite = true, writing = false, writeAgain = false, boardBack = null;
 function cleanRow(d) {
   const v = d.data() || {};
   const score = Number.isFinite(v.score) ? Math.max(0, Math.floor(v.score)) : 0;
-  return { id: d.id, name: String(v.name || 'Traveler').slice(0, 18), avatar: drawings[v.avatar] ? v.avatar : 'daruma', score, stops: Number.isFinite(v.stops) ? Math.max(0, Math.min(THEMES.length * 6, Math.floor(v.stops))) : 0 };
+  return { id: d.id, name: String(v.name || 'Traveler').slice(0, 18), avatar: v.avatar === 'traveler' || drawings[v.avatar] ? v.avatar : 'daruma', look: cleanLook(v.look), score, stops: Number.isFinite(v.stops) ? Math.max(0, Math.min(THEMES.length * 6, Math.floor(v.stops))) : 0 };
 }
 const myStops = () => THEMES.reduce((n, t) => n + stopsDone(t), 0);
 function myRank(fromBoard = false) {
@@ -1296,8 +1689,8 @@ function myRank(fromBoard = false) {
 }
 function pushScore() {
   if (!DB || !UID || !canWrite) return;
-  const mine = board.find(r => r.id === UID), body = { name: S.name, avatar: S.avatar, score: S.score, stops: myStops(), updated: Date.now() };
-  if (mine && mine.score === body.score && mine.name === body.name && mine.avatar === body.avatar && mine.stops === body.stops) return;
+  const mine = board.find(r => r.id === UID), body = { name: S.name, avatar: S.avatar, look: S.avatar === 'traveler' ? cleanLook(S.look) : null, score: S.score, stops: myStops(), updated: Date.now() };
+  if (mine && mine.score === body.score && mine.name === body.name && mine.avatar === body.avatar && JSON.stringify(mine.look || null) === JSON.stringify(body.look) && mine.stops === body.stops) return;
   // optimistic local update so ranks feel instant
   board = board.filter(r => r.id !== UID).concat([{ id: UID, ...body }]).sort((a, b) => b.score - a.score);
   if (writing) { writeAgain = true; return; }
@@ -1339,10 +1732,10 @@ function renderBoard() {
   const r = myRank();
   body.innerHTML = `
     ${!canWrite ? `<p class="board-msg small">You can see the board, but your score can’t be added from this view.</p>` : ''}
-    ${r ? `<div class="you-card"><span class="avatar">${paint(S.avatar, 'flat')}</span><div><small>Your rank</small><b>#${r}</b></div><div class="you-pts">${ICON.star}<b>${S.score}</b></div></div>` : ''}
+    ${r ? `<div class="you-card"><span class="avatar">${avatarArt()}</span><div><small>Your rank</small><b>#${r}</b></div><div class="you-pts">${ICON.star}<b>${S.score}</b></div></div>` : ''}
     ${rows.length ? `<ol class="ranks">${rows.map((p, i) => `<li class="${p.id === UID ? 'me' : ''} ${i < 3 ? 'top' + (i + 1) : ''}">
       <span class="pos">${i < 3 ? `<span class="medal m${i + 1}">${i + 1}</span>` : i + 1}</span>
-      <span class="avatar">${paint(p.avatar, 'flat')}</span>
+      <span class="avatar">${avatarArt(p)}</span>
       <span class="who-col"><b>${esc(p.name)}${p.id === UID ? ' <em>(you)</em>' : ''}</b><small>${p.stops} of ${THEMES.length * 6} stops</small></span>
       <span class="pts">${p.score}</span></li>`).join('')}</ol>` : `<p class="board-msg hand">No scores yet. Finish a stop to be the first.</p>`}`;
 }
@@ -1357,10 +1750,11 @@ function openProfile() {
 function renderProfile() {
 
   $('#profile-body').innerHTML = `
-    <div class="me">${`<span class="avatar big">${paint(S.avatar, 'flat')}</span>`}
+    <div class="me">${`<span class="avatar big">${avatarArt()}</span>`}
       <label class="name-field"><span class="sr">Your name</span><input id="name" maxlength="18" value="${esc(S.name)}" autocomplete="off" spellcheck="false"></label></div>
-    <p class="av-note">${S.unlocked.length} of ${AVATARS.length} avatars · finish stops to unlock more</p>
-    <div class="avatars" role="radiogroup" aria-label="Choose your avatar">${AVATARS.map(a => S.unlocked.includes(a)
+    <button class="dress-btn" id="dress-btn"><span class="dress-fig">${travelerImg(S.look, false)}</span><span><b>Dress up</b><small>${ownedWear().length} of ${WEAR_KEYS.length} costumes from your journeys</small></span><span aria-hidden="true">›</span></button>
+    <p class="av-note">${S.unlocked.length + 1} of ${AVATARS.length + 1} avatars · finish stops to unlock more</p>
+    <div class="avatars" role="radiogroup" aria-label="Choose your avatar"><button role="radio" aria-checked="${S.avatar === 'traveler'}" aria-label="My traveler" data-av="traveler">${travelerImg(S.look, true)}</button>${AVATARS.map(a => S.unlocked.includes(a)
       ? `<button role="radio" aria-checked="${a === S.avatar}" aria-label="${LABEL[a][1]}" data-av="${a}">${paint(a, 'flat')}</button>`
       : `<span class="av-locked" aria-label="Locked avatar">${ICON.lock}</span>`).join('')}</div>
     <div class="stats">
@@ -1379,6 +1773,8 @@ function renderProfile() {
   $$('[data-av]').forEach(b => b.onclick = () => { S.avatar = b.dataset.av; persist(); pushScore(); renderProfile(); });
   $$('[data-j]').forEach(b => b.onclick = () => { jTheme = +b.dataset.j; renderProfile(); });
   $('#open-insights').onclick = () => openInsights();
+  $('#dress-btn').onclick = () => openWardrobe();
+  if (ownedWear().length) setTimeout(() => { if (!$('#profile').hidden) coach('dress', '#dress-btn', 'Try on your costumes'); }, 540);
   $$('[data-k]').forEach(b => b.onclick = () => {
     const k = b.dataset.k;
     sheet(`<div class="sheet-art">${paint(k)}</div><p class="nat" lang="${langOf(k)}">${LABEL[k][0]}</p><p class="en">${LABEL[k][1]} · ${categories[k]}</p><p>${tierTag(k)}</p><p>${items[k][1]}</p><button class="btn primary" data-close>Close</button>`);
@@ -1394,16 +1790,49 @@ function closeSheet() { const s = $('#sheet'); if (!s.open) return; s.classList.
 $('#sheet').addEventListener('close', () => { const f = onClose; onClose = null; if (f) f(); });
 $('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') closeSheet(); });
 $('#sheet').addEventListener('cancel', e => { e.preventDefault(); closeSheet(); });
+// ---------- Motion tutorial: arrows pointing at the next thing to do ----------
+if (!S.tips || typeof S.tips !== 'object') S.tips = {};
+let coachOn = null; const coachQ = [];
+function coach(id, sel, text, o = {}) {
+  if (S.tips[id]) return;
+  if (coachOn) { if (coachOn !== id && !coachQ.some(q => q[0] === id)) coachQ.push([id, sel, text, o]); return; }
+  const el = typeof sel === 'string' ? $(sel) : sel;
+  if (!el || !el.getClientRects().length) return;
+  const r = el.getBoundingClientRect(), vw = innerWidth, vh = innerHeight;
+  if (r.bottom < 0 || r.top > vh) return;
+  coachOn = id; S.tips[id] = 1; persist();
+  const pad = o.pad ?? 8, above = o.place ? o.place === 'above' : r.top > vh * .42;
+  const cx = r.left + r.width / 2;
+  const lx = Math.min(vw - 110, Math.max(110, cx + (o.shift || 0)));
+  const ly = above ? Math.max(70, r.top - pad - 120) : Math.min(vh - 70, r.bottom + pad + 110);
+  const sx = lx + (cx > lx ? 30 : cx < lx ? -30 : 0), sy = above ? ly + 26 : ly - 26;
+  const ex = cx, ey = above ? r.top - pad - 8 : r.bottom + pad + 8;
+  const bend = (ex - sx) === 0 ? 40 : -(ex - sx) * .5;
+  const qx = (sx + ex) / 2 + bend, qy = (sy + ey) / 2;
+  const ang = Math.atan2(ey - qy, ex - qx), h = 13;
+  const head = `M${ex - h * Math.cos(ang - .5)} ${ey - h * Math.sin(ang - .5)}L${ex} ${ey}L${ex - h * Math.cos(ang + .5)} ${ey - h * Math.sin(ang + .5)}`;
+  const tap = o.tap === false ? '' : `<span class="ripple" style="left:${cx}px;top:${r.top + r.height / 2}px"></span><span class="ripple b" style="left:${cx}px;top:${r.top + r.height / 2}px"></span>`;
+  const box = $('#coach');
+  box.innerHTML = `<div class="spot" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div>${tap}
+    <svg class="arrow" aria-hidden="true" style="--dx:${Math.cos(ang) * 6}px;--dy:${Math.sin(ang) * 6}px"><g><path d="M${sx} ${sy}Q${qx} ${qy} ${ex} ${ey}"/><path d="${head}"/></g></svg>
+    <div class="tip" role="status" style="left:${lx}px;top:${ly - 22}px">${text}</div>`;
+  box.querySelectorAll('.arrow path').forEach(pth => { const L = Math.ceil(pth.getTotalLength()); pth.style.setProperty('--len', L); });
+  box.hidden = false;
+  const close = () => {
+    if (coachOn !== id) return;
+    document.removeEventListener('pointerdown', close, true); removeEventListener('resize', close);
+    box.classList.add('out');
+    setTimeout(() => { box.classList.remove('out'); box.hidden = true; box.innerHTML = ''; coachOn = null; const n = coachQ.shift(); if (n) setTimeout(() => coach(...n), 300); }, 220);
+  };
+  setTimeout(() => { document.addEventListener('pointerdown', close, true); addEventListener('resize', close); }, 360);
+}
+const tipBoard = () => setTimeout(() => { if (!$('#game').hidden && !locked) coach('flip', $('#grid .card:not(:disabled)'), 'Tap 2 cards · find a pair'); }, 200);
 function help() {
-  sheet(`<h2>How to play</h2>
-    <p>Pick a destination and follow its trail. Each stop is a level with its own theme, like street food or festival nights.</p>
-    <p>Every stop has six pairs, all from its own theme. Later stops give you a shorter peek, and Free wander mixes ten pairs from the whole country.</p>
-    <p>Tap two cards to turn them over. A match is worth <b>+${MATCH_PTS}</b> point.</p>
-    <p>After each match, a little challenge appears. Answer it right for <b>+${QUIZ_PTS}</b>, or skip it.</p>
-    <p>Each stop also gives you a memory score. Bonus questions come back days later as memory checks, so the stories stick. See it all in Memory insights on your profile.</p>
-    <p>Finish a stop to earn up to three stars and unlock a new avatar. Tap the trophy to see the leaderboard.</p>
-    <p>Stuck? Each stop gives you one peek, from 5 seconds early on down to 3. There’s no timer, and your game saves on this device.</p>
-    <button class="btn primary" data-close>Let’s play</button>`);
+  // the "?" button replays the arrows instead of showing a wall of text
+  S.tips = {}; persist(); coachQ.length = 0;
+  if (!$('#home').hidden) renderHome();
+  else if (!$('#map').hidden) openMap(THEMES.indexOf(T));
+  else if (!$('#game').hidden) tipBoard();
 }
 
 // ---------- Board sizing ----------
@@ -1435,7 +1864,7 @@ THEMES.forEach(t => { if (new Set(t.order).size !== 36 || t.order.some(k => !ite
 $$('[data-icon]').forEach(e => e.innerHTML = ICON[e.dataset.icon]);
 renderHome(); show('home');
 initCloud();
-if (!S.seenHelp) { S.seenHelp = true; persist(); setTimeout(help, 400); }
+S.seenHelp = true;
 
 </script>
 </body>
