@@ -366,10 +366,21 @@ body[data-theme="vn"] .map-title h1{font:42px/1.05 var(--hand);font-weight:400}
 .score.coins{min-width:64px;margin-left:6px}.coin-ico{flex:none}
 .hud .score.coins{padding-left:6px}
 .market-banner{background:#fff3c4}
-.poster.locked-dest .poster-art{filter:grayscale(.7);opacity:.6}
-.poster.locked-dest .poster-native,.poster.locked-dest .poster-en{opacity:.6}
-.poster.locked-dest .poster-foot span:last-child{display:flex;align-items:center;gap:3px}
-.poster.locked-dest .poster-go{background:#fffaf1}
+.poster.locked-dest .poster-art{filter:grayscale(1);opacity:.4}
+.poster.locked-dest{cursor:not-allowed;box-shadow:2px 3px 0 var(--ink)}
+.poster.locked-dest .poster-native,.poster.locked-dest .poster-en{opacity:.45}
+.poster.locked-dest .poster-go{background:#ebe6da;color:#8a8072;display:flex;align-items:center;gap:4px}
+.lock-foot{display:flex;flex-direction:column;gap:5px;width:100%}
+.lock-foot .lv{display:flex;align-items:center;gap:5px;color:#8a8072}
+.lock-foot small{font-size:12px;color:#8a8072}
+.tk-bar{height:8px;border:1.5px solid #3d372f;border-radius:var(--wobble);background:#fffcf4;overflow:hidden}
+.tk-bar i{display:block;height:100%;background:repeating-linear-gradient(115deg,#f2c14e 0 5px,#e9a04a 5px 8px)}
+.poster.shake{animation:shake .45s ease}
+@keyframes shake{20%{transform:translateX(-6px) rotate(-.6deg)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.poster.ready-dest .poster-go{background:#f2c14e;animation:readyglow 1.8s ease-in-out infinite}
+@keyframes readyglow{50%{transform:rotate(4deg) scale(1.08);box-shadow:0 0 0 6px rgba(242,193,78,.35)}}
+html.calm .poster.ready-dest .poster-go{animation:none}
+.poster.ready-dest .poster-foot span:last-child{display:flex;align-items:center;gap:3px}
 .coins-earned b{color:#c9922e!important}
 .wallet{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border:2px solid #3d372f;border-radius:var(--wobble);background:#fff3c4;color:#3d372f;box-shadow:3px 4px 0 #3d372f}
 .wallet .coin-ico{width:34px;height:34px}.wallet b{font:40px/1 var(--hand);font-weight:400}.wallet span{font:18px var(--hand);color:#5a5246}
@@ -517,7 +528,7 @@ html.calm .card .inner{transition-duration:.3s}
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
     <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
     <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
-    <p class="app-version">Version 2.5 · 21 Nov 2026</p>
+    <p class="app-version">Version 2.6 · 21 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -954,12 +965,13 @@ function renderHome() {
   if (dueN) $('#home-check-btn').onclick = () => memoryCheck(dueReviews().slice(0, 5), () => renderHome());
   $('#home-themes').innerHTML = THEMES.map((T, i) => {
     const n = nextStopOf(T), cur = S.t[T.id].cur, open = hasDest(T), first = !S.dests.length;
-    if (!open) return `<button class="poster ${T.id} ${first ? 'choose-dest' : 'locked-dest'}" data-dest="${i}">
+    const price = nextTicket(), afford = S.coins >= price, pct = Math.min(100, Math.round(S.coins / price * 100));
+    if (!open) return `<button class="poster ${T.id} ${first ? 'choose-dest' : afford ? 'ready-dest' : 'locked-dest'}" data-dest="${i}" ${!first && !afford ? `aria-disabled="true" aria-label="${T.country} is locked. ${price - S.coins} more coins needed for a ticket."` : ''}>
       <span class="poster-native" lang="${T.lang}">${T.native}</span>
       <span class="poster-en">${T.country}</span>
       <span class="poster-art">${paint(T.hero)}</span>
-      <span class="poster-foot"><span class="lv">${first ? 'Begin your journey here' : 'Fly here to explore'}</span><span>${first ? '36 souvenirs' : `${COIN}${nextTicket()}`}</span></span>
-      <span class="poster-go">${first ? 'Start here' : '✈ Fly'}</span>
+      <span class="poster-foot">${first ? `<span class="lv">Begin your journey here</span><span>36 souvenirs</span>` : afford ? `<span class="lv">Your ticket is ready</span><span>${COIN}${price}</span>` : `<span class="lock-foot"><span class="lv">${ICON.lock} Locked · ${price - S.coins} more coins</span><span class="tk-bar" aria-hidden="true"><i style="width:${pct}%"></i></span><small>${S.coins} / ${price} coins</small></span>`}</span>
+      <span class="poster-go">${first ? 'Start here' : afford ? `✈ Fly · ${price}` : `${ICON.lock} Locked`}</span>
     </button>`;
     return `<button class="poster ${T.id}" data-dest="${i}">
       <span class="poster-native" lang="${T.lang}">${T.native}</span>
@@ -974,7 +986,7 @@ function renderHome() {
     if ($('#home').hidden) return;
     coach('home', '.poster', S.dests.length ? 'Pick a place to visit' : 'Pick where to begin');
     if ($('#market-btn') && sparesCount()) coach('market', '#market-btn', 'Share spares for coins');
-    if (S.dests.length && S.dests.length < THEMES.length && S.coins >= nextTicket()) coach('fly', '.poster.locked-dest', 'You can fly here now!');
+    if (S.dests.length && S.dests.length < THEMES.length && S.coins >= nextTicket()) coach('fly', '.poster.ready-dest', 'You can fly here now!');
     if ($('#home-check-btn')) coach('check', '#home-check-btn', 'Remember these · +1 each');
     if (myStops() > 0) coach('trophy', '#home-hud [data-board]', 'See your rank', { place: 'below' });
   }, 540);
@@ -1578,6 +1590,13 @@ function destTap(i) {
   }
   const price = nextTicket(), short = price - S.coins;
   if (short > 0) {
+    // Locked until the ticket is affordable: a gentle shake, no menu
+    const el = $(`[data-dest="${i}"]`);
+    if (el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+    buzz([8, 40, 8]); note(260, 0, .18, .014, 'triangle');
+    return;
+  }
+  if (false) {
     sheet(`<div class="ticket">${ticketArt(D, price)}</div><h2>${short} more coins to fly</h2><p>Finish stops to earn coins, or share your spare souvenirs with collectors at the market.</p>
       <button class="btn primary" id="to-market">Visit the Souvenir market</button><button class="btn ghost" data-close>Maybe later</button>`);
     $('#to-market').onclick = () => { closeSheet(); setTimeout(() => openMarket(), 230); };
