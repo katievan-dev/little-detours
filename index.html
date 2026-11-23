@@ -528,7 +528,7 @@ html.calm .card .inner{transition-duration:.3s}
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
     <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
     <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
-    <p class="app-version">Version 2.6 · 21 Nov 2026</p>
+    <p class="app-version">Version 2.7 · 21 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -1787,12 +1787,21 @@ function renderProfile() {
     ${tierSummary(THEMES[jTheme].order)}
     <ul class="poster-list journal">${byTier(THEMES[jTheme].order).map(k => journal.includes(k)
       ? plItem(k, THEMES[jTheme].lang, true)
-      : `<li class="empty" aria-label="${TIERS[tierOf(k)].name} item, not found yet"><span class="pl-art t-${TIERS[tierOf(k)].id}">?</span><span class="pl-text"><small>Not found yet</small>${tierTag(k)}</span></li>`).join('')}</ul>`;
+      : `<li class="empty" aria-label="${TIERS[tierOf(k)].name} item, not found yet"><span class="pl-art t-${TIERS[tierOf(k)].id}">?</span><span class="pl-text"><small>Not found yet</small>${tierTag(k)}</span></li>`).join('')}</ul>
+    <button class="btn ghost reset-btn" id="reset-journey">Reset my journey</button>`;
   $('#name').onchange = e => { S.name = e.target.value.trim().slice(0, 18) || 'Traveler'; persist(); pushScore(); };
   $$('[data-av]').forEach(b => b.onclick = () => { S.avatar = b.dataset.av; persist(); pushScore(); renderProfile(); });
   $$('[data-j]').forEach(b => b.onclick = () => { jTheme = +b.dataset.j; renderProfile(); });
   $('#open-insights').onclick = () => openInsights();
   $('#dress-btn').onclick = () => openWardrobe();
+  $('#reset-journey').onclick = () => {
+    sheet(`<h2>Start over?</h2><p>This clears your passport on this device: stops, stars, coins, spares, costumes, journal and memory scores. It can’t be undone.</p>
+      <button class="btn primary" id="reset-yes">Yes, start a fresh journey</button><button class="btn ghost" data-close>Keep my journey</button>`);
+    $('#reset-yes').onclick = () => {
+      try { ['ld2', 'ld-journal', 'ld-progress', 'ld-sound', 'ld-seen-help'].forEach(k => localStorage.removeItem(k)); } catch {}
+      location.reload();
+    };
+  };
   if (ownedWear().length) setTimeout(() => { if (!$('#profile').hidden) coach('dress', '#dress-btn', 'Try on your costumes'); }, 540);
   $$('[data-k]').forEach(b => b.onclick = () => {
     const k = b.dataset.k;
