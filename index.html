@@ -390,6 +390,15 @@ html.calm .poster.ready-dest .poster-go{animation:none}
 .peek-coin svg{width:17px;height:17px;vertical-align:-3px;margin-left:3px}
 #peek.poor{opacity:.55}
 #peek.shake{animation:shake .45s ease}
+.mk-intro{margin:0 0 10px;font-size:15px;line-height:1.45}
+.mk-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0;margin:0 0 14px}
+.mk-steps li{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border:1.5px dashed var(--line);border-radius:var(--wobble2);text-align:center;font:15px/1.15 var(--hand)}
+.mk-steps li span{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fffaf1;font:15px/24px var(--hand)}
+.next-flight{margin:12px 0 0;padding:10px 12px;border:1.8px solid var(--ink);border-radius:var(--wobble2);background:var(--card-face);color:#3d372f}
+.next-flight p{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 0 7px;font:17px var(--hand)}
+.next-flight p b{font-weight:400}.next-flight p span{font-size:15px;color:#8a8072;text-align:right}
+.mk-help{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.next-flight .tk-bar{display:block}
 .dm-next{display:block;margin-top:3px;font-size:12.5px;color:var(--muted)}
 .wanted{font-style:normal;font:13px/1 var(--hand);color:#fffaf1;background:var(--accent);padding:3px 7px 2px;border-radius:var(--wobble2);margin-top:5px;white-space:nowrap}
 .dm-ico{color:var(--accent);font-size:18px}
@@ -548,7 +557,7 @@ html.calm .card .inner{transition-duration:.3s}
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
     <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
     <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
-    <p class="app-version">Version 3.0 · 22 Nov 2026</p>
+    <p class="app-version">Version 3.1 · 22 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -1023,7 +1032,7 @@ function renderHome() {
   setTimeout(() => {
     if ($('#home').hidden) return;
     coach('home', '.poster', S.dests.length ? 'Pick a place to visit' : 'Pick where to begin');
-    if (sparesCount()) coach('market', '#tabs [data-tab="market"]', 'Share spares for coins', { place: 'above', tap: false });
+    if (sparesCount()) coach('market', '#tabs [data-tab="market"]', 'Sell spares for flight money', { place: 'above', tap: false });
     if (S.dests.length && S.dests.length < THEMES.length && S.coins >= nextTicket()) coach('fly', '.poster.ready-dest', 'You can fly here now!');
     if (dueReviews().length) coach('check', '#tabs [data-tab="insights"]', 'Memory checks live here', { place: 'above', tap: false });
     if (myStops() > 0) coach('trophy', '#home-hud [data-board]', 'See your rank', { place: 'below' });
@@ -1670,7 +1679,7 @@ function destTap(i) {
     return;
   }
   if (false) {
-    sheet(`<div class="ticket">${ticketArt(D, price)}</div><h2>${short} more coins to fly</h2><p>Finish stops to earn coins, or share your spare souvenirs with collectors at the market.</p>
+    sheet(`<div class="ticket">${ticketArt(D, price)}</div><h2>${short} more coins to fly</h2><p>Finish stops to earn coins, or sell your spare souvenirs to collectors at the market.</p>
       <button class="btn primary" id="to-market">Visit the Souvenir market</button><button class="btn ghost" data-close>Maybe later</button>`);
     $('#to-market').onclick = () => { closeSheet(); setTimeout(() => openMarket(), 230); };
     return;
@@ -1712,12 +1721,14 @@ function renderMarket() {
   const keys = Object.keys(S.spares).filter(k => S.spares[k] > 0 && items[k]).sort((a, b) => (isWanted(b) - isWanted(a)) || valueOf(b) - valueOf(a));
   const dd = demandNow(), wantedN = keys.filter(isWanted).length;
   $('#market-body').innerHTML = `
+    <p class="mk-intro">Sell your spare souvenirs to collectors and save up for your next flight ticket.</p>
+    <ol class="mk-steps" aria-label="How the market works"><li><span>1</span>Replay stops to find spares</li><li><span>2</span>Sell them for coins</li><li><span>3</span>Buy your flight ✈</li></ol>
     <div class="wallet">${COIN}<b class="coin-val">${S.coins}</b><span>travel coins</span></div>
-    ${S.dests.length < THEMES.length ? `<p class="next-ticket">Next ticket: ${nextTicket()} coins${S.coins >= nextTicket() ? ' · you can fly now!' : ` · ${nextTicket() - S.coins} to go`}</p>` : '<p class="next-ticket">Every destination is open. Coins still show your collector skills!</p>'}
+    ${S.dests.length < THEMES.length ? `<div class="next-flight"><p><b>✈ Next flight ticket: ${nextTicket()} coins</b><span>${S.coins >= nextTicket() ? 'You have enough! Go to Travel to fly.' : `${nextTicket() - S.coins} more to go`}</span></p><span class="tk-bar" aria-hidden="true"><i style="width:${Math.min(100, Math.round(S.coins / nextTicket() * 100))}%"></i></span></div>` : '<p class="next-ticket">Every destination is open. Keep selling to grow your collector savings!</p>'}
     <div class="demand"><span class="dm-ico" aria-hidden="true">✦</span><span>Collectors want <b>${dd.label}</b> right now · <b>+50%</b><small class="dm-next">${wantedN ? `You have ${wantedN} they want! · ` : ''}New requests in ${untilText(dd.ends - Date.now())}</small></span></div>
-    <h2 class="j-title">Your spares</h2>
+    <h2 class="j-title">Spares you can sell</h2>
     ${keys.length ? `<ul class="poster-list spares">${keys.map(k => `<li><button data-sell="${k}"><span class="pl-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</span><span class="pl-text"><b lang="${langOf(k)}">${LABEL[k][0]}</b><small>${LABEL[k][1]}</small>${tierTag(k)}</span><span class="sp-meta"><b>×${S.spares[k]}</b><small>~${valueOf(k)}</small>${isWanted(k) ? '<em class="wanted">Wanted +50%</em>' : ''}</span></button></li>`).join('')}</ul>`
-      : `<p class="ins-empty hand">No spares yet. Replay a finished stop or try Free wander: matching something you already own gives you a spare to share.</p>`}`;
+      : `<p class="ins-empty hand">No spares to sell yet.</p><p class="mk-help">A spare is an extra copy of a souvenir you already own. Replay a finished stop or play Free wander, and every pair you match again becomes a spare. Bring it here to sell for flight money.</p>`}`;
   $$('[data-sell]').forEach(b => b.onclick = () => startAuction(b.dataset.sell));
   clearTimeout(renderMarket.t); renderMarket.t = setTimeout(() => { if (!$('#market').hidden && !auction) renderMarket(); }, Math.min(dd.ends - Date.now() + 1000, 6e4));
   wire();
@@ -1759,7 +1770,7 @@ function startAuction(k) {
     addCoins(got); sfx.coin(); buzz([10, 30, 10]);
     renderMarket();
     const w = $('#market .wallet'); if (w) { w.classList.remove('bump'); void w.offsetWidth; w.classList.add('bump'); }
-    sheet(`<div class="sheet-art">${paint(k)}</div><h2>Shared with ${who[0]}</h2><p>Your spare ${LABEL[k][1]} found a happy home with a ${who[1]}. <b>+${got} travel coins.</b></p><button class="btn primary" data-close>Lovely</button>`);
+    sheet(`<div class="sheet-art">${paint(k)}</div><h2>Sold to ${who[0]}</h2><p>Your spare ${LABEL[k][1]} found a happy home with a ${who[1]}. <b>+${got} travel coins</b> toward your next flight.</p><button class="btn primary" data-close>Lovely</button>`);
   };
 }
 $('#market-back').onclick = () => { if (auction) { auction.done = true; auction.timers.forEach(clearTimeout); auction = null; } marketBack ? marketBack() : (renderHome(), show('home')); };
