@@ -387,6 +387,11 @@ html.calm .poster.ready-dest .poster-go{animation:none}
 .wallet.bump{animation:bump .5s ease}
 .next-ticket{text-align:center;margin:10px 0 0;font:18px var(--hand);color:var(--muted)}
 .demand{display:flex;align-items:center;gap:10px;margin:14px 0 0;padding:10px 12px;border:1.8px dashed var(--accent);border-radius:var(--wobble2);font-size:14px}
+.peek-coin svg{width:17px;height:17px;vertical-align:-3px;margin-left:3px}
+#peek.poor{opacity:.55}
+#peek.shake{animation:shake .45s ease}
+.dm-next{display:block;margin-top:3px;font-size:12.5px;color:var(--muted)}
+.wanted{font-style:normal;font:13px/1 var(--hand);color:#fffaf1;background:var(--accent);padding:3px 7px 2px;border-radius:var(--wobble2);margin-top:5px;white-space:nowrap}
 .dm-ico{color:var(--accent);font-size:18px}
 .spares li>button{padding:6px 0;border-bottom:1px dashed var(--line);border-radius:0}
 .poster-list.spares{grid-template-columns:1fr}
@@ -409,6 +414,21 @@ html.calm .poster.ready-dest .poster-go{animation:none}
 .flight-map{width:100%;height:auto;border:2px solid #3d372f;border-radius:18px;margin-top:10px}
 .arrive{margin-top:12px}.arrive h2{font:34px var(--hand);margin:10px 0 4px;font-weight:400}.arrive p{font-size:19px;color:var(--muted);margin:0 0 6px}
 .big-stamp{margin:0 auto}
+
+/* Bottom tabs */
+#home-check,#home-market{display:none}
+.tabs{display:flex;flex:none;position:relative;z-index:3;border-top:2px solid var(--ink);background:var(--paper);padding:4px 6px 2px}
+.tab{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;height:58px;border:0;background:none;color:var(--muted);font:16px/1 var(--hand)}
+.tab .tab-ico{height:26px;display:grid;place-items:center;font:21px/1 var(--hand)}
+.tab .tab-ico svg{width:22px;height:22px}
+.tab .me-tab{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--muted);overflow:hidden;background:var(--card-face)}.tab .me-tab .art{width:26px;height:26px}
+.tab[aria-current="page"]{color:var(--ink)}
+.tab[aria-current="page"]::after{content:"";position:absolute;bottom:3px;left:30%;right:30%;height:3px;border-radius:2px;background:var(--accent)}
+.tab[aria-current="page"] .me-tab{border-color:var(--ink)}
+.tab-badge{position:absolute;top:4px;left:calc(50% + 8px);min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--accent);color:#fffaf1;font:12px/20px var(--body);font-weight:700;font-style:normal;border:1.5px solid var(--paper)}
+body.tabbed #insights-back,body.tabbed #market-back,body.tabbed #profile-back{visibility:hidden}
+.mem-top{margin-top:2px}
+.mem-top .go{border:2px solid #3d372f}
 
 /* Motion tutorial */
 #coach{position:fixed;inset:0;z-index:55;pointer-events:none}
@@ -528,7 +548,7 @@ html.calm .card .inner{transition-duration:.3s}
     <p class="home-sub" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sound &amp; vibration <span style="display:flex"><button class="icon-btn sound-btn"></button><button class="icon-btn help-btn hand" style="font-size:22px" aria-label="How to play">?</button></span></p>
     <p class="home-sub" style="margin:0;display:flex;align-items:center;justify-content:space-between">Animations <button class="motion-btn" id="motion-btn"></button></p>
     <p class="home-sub" id="motion-note" style="margin:4px 0 0;font-size:13px"></p>
-    <p class="app-version">Version 2.7 · 21 Nov 2026</p>
+    <p class="app-version">Version 3.0 · 22 Nov 2026</p>
   </section>
 
   <section class="screen" id="map" hidden>
@@ -560,7 +580,7 @@ html.calm .card .inner{transition-duration:.3s}
   </section>
 
   <section class="screen" id="insights" hidden>
-    <div class="p-head"><button class="icon-btn" id="insights-back" aria-label="Back"><span data-icon="back"></span></button><h1>Memory insights</h1><span style="width:44px"></span></div>
+    <div class="p-head"><button class="icon-btn" id="insights-back" aria-label="Back"><span data-icon="back"></span></button><h1>Memory</h1><span style="width:44px"></span></div>
     <div id="insights-body"></div>
   </section>
 
@@ -568,6 +588,12 @@ html.calm .card .inner{transition-duration:.3s}
     <div class="p-head"><button class="icon-btn" id="profile-back" aria-label="Back"><span data-icon="back"></span></button><h1>My profile</h1><span style="display:flex"><button class="icon-btn sound-btn"></button></span></div>
     <div id="profile-body"></div>
   </section>
+  <nav class="tabs" id="tabs" hidden aria-label="Main">
+    <button class="tab" data-tab="home"><span class="tab-ico" aria-hidden="true">✈</span><span>Travel</span></button>
+    <button class="tab" data-tab="market"><span class="tab-ico coin-tab" aria-hidden="true"></span><span>Market</span><i class="tab-badge" id="badge-market" hidden></i></button>
+    <button class="tab" data-tab="insights"><span class="tab-ico" aria-hidden="true">✦</span><span>Memory</span><i class="tab-badge" id="badge-memory" hidden></i></button>
+    <button class="tab" data-tab="profile"><span class="tab-ico me-tab" aria-hidden="true"></span><span>Me</span></button>
+  </nav>
 </div>
 <div id="challenge" hidden></div>
 <div id="coach" hidden></div>
@@ -928,8 +954,20 @@ function applyTheme(T) {
 }
 
 // ---------- Screens ----------
+const TAB_SCREENS = ['home', 'insights', 'market', 'profile'];
+function updateTabs(id) {
+  const on = TAB_SCREENS.includes(id);
+  $('#tabs').hidden = !on; document.body.classList.toggle('tabbed', on);
+  $$('.tab').forEach(t => t.setAttribute('aria-current', t.dataset.tab === id ? 'page' : 'false'));
+  const due = typeof dueReviews === 'function' ? dueReviews().length : 0, sp = typeof sparesCount === 'function' ? sparesCount() : 0;
+  const bm = $('#badge-memory'), bk = $('#badge-market');
+  bm.hidden = !due; bm.textContent = due; bk.hidden = !sp; bk.textContent = sp;
+  const c = $('#tabs .coin-tab'); if (c && !c.innerHTML && typeof COIN === 'string') c.innerHTML = COIN;
+  const m = $('#tabs .me-tab'); if (m) m.innerHTML = avatarArt();
+}
 function show(id) {
   $$('.screen').forEach(s => s.hidden = s.id !== id);
+  updateTabs(id);
   $('#' + id).scrollTop = 0;
   if (id === 'game') requestAnimationFrame(fitBoard);
   if (id === 'home' || id === 'profile' || id === 'board' || id === 'insights' || id === 'wardrobe' || id === 'market') { document.body.dataset.theme = 'home'; $('#backdrop').innerHTML = ''; }
@@ -985,9 +1023,9 @@ function renderHome() {
   setTimeout(() => {
     if ($('#home').hidden) return;
     coach('home', '.poster', S.dests.length ? 'Pick a place to visit' : 'Pick where to begin');
-    if ($('#market-btn') && sparesCount()) coach('market', '#market-btn', 'Share spares for coins');
+    if (sparesCount()) coach('market', '#tabs [data-tab="market"]', 'Share spares for coins', { place: 'above', tap: false });
     if (S.dests.length && S.dests.length < THEMES.length && S.coins >= nextTicket()) coach('fly', '.poster.ready-dest', 'You can fly here now!');
-    if ($('#home-check-btn')) coach('check', '#home-check-btn', 'Remember these · +1 each');
+    if (dueReviews().length) coach('check', '#tabs [data-tab="insights"]', 'Memory checks live here', { place: 'above', tap: false });
     if (myStops() > 0) coach('trophy', '#home-hud [data-board]', 'See your rank', { place: 'below' });
   }, 540);
   wire();
@@ -1074,8 +1112,9 @@ function paintCards() {
 function hud() {
   $('#pair-count').textContent = `${G.matched.length} / ${PAIRS_OF()} pairs`;
   $('#bar-fill').style.width = G.matched.length / PAIRS_OF() * 100 + '%';
-  const pk = $('#peek'); pk.disabled = G.peeked || locked || G.matched.length === PAIRS_OF();
-  if (!peekTimer) $('#peek-label').textContent = G.peeked ? 'Used' : 'Peek';
+  const pk = $('#peek'); pk.disabled = locked || G.matched.length === PAIRS_OF();
+  pk.classList.toggle('poor', S.coins < peekCost());
+  if (!peekTimer) $('#peek-label').innerHTML = `Peek · ${peekCost()}<span class="peek-coin">${COIN}</span>`;
 }
 const say = t => { $('#status').textContent = t; };
 
@@ -1101,7 +1140,7 @@ function flip(i) {
     }, 360);
   } else {
     persist();
-    setTimeout(() => { if (r !== round) return; sfx.miss(); first = second = null; locked = false; paintCards(); hud(); say('Not quite. Try another pair.'); if (!G.peeked && G.moves >= 2) coach('peek', '#peek', 'Stuck? Peek once'); }, 950);
+    setTimeout(() => { if (r !== round) return; sfx.miss(); first = second = null; locked = false; paintCards(); hud(); say('Not quite. Try another pair.'); if (!G.peeked && G.moves >= 2 && S.coins >= peekCost()) coach('peek', '#peek', 'Stuck? Peek for coins'); }, 950);
   }
 }
 
@@ -1123,9 +1162,18 @@ function fly(text, fromEl, cls = '') {
 }
 
 // Peek
+// Peeks cost travel coins: 5 for the first on a board, then 10, 15…
+const peekCost = () => 5 * ((G.peeks || 0) + 1);
 $('#peek').onclick = () => {
-  if (G.peeked || locked || G.matched.length === PAIRS_OF()) return;
-  G.peeked = true; G.peekAt = (G.log || []).length; persist(); locked = true;
+  if (locked || G.matched.length === PAIRS_OF()) return;
+  const cost = peekCost();
+  if (S.coins < cost) {
+    const pk = $('#peek'); pk.classList.remove('shake'); void pk.offsetWidth; pk.classList.add('shake');
+    buzz([8, 40, 8]); say(`A peek costs ${cost} coins. You have ${S.coins}.`); return;
+  }
+  addCoins(-cost); G.peeks = (G.peeks || 0) + 1;
+  if (!G.peeked) G.peekAt = (G.log || []).length;
+  G.peeked = true; persist(); locked = true;
   const r = round; let left = G.stop === 6 ? 4 : STOP_PEEK[G.stop] || PEEK_S;
   $$('.card').forEach(c => c.classList.add('open'));
   say('A quiet moment to remember.');
@@ -1138,7 +1186,7 @@ $('#peek').onclick = () => {
 };
 $('#restart').onclick = () => {
   if (locked) return;
-  sheet(`<h2>Shuffle these cards?</h2><p>All the cards turn face down and you get a fresh peek. Points you’ve already earned stay with you.</p>
+  sheet(`<h2>Shuffle these cards?</h2><p>All the cards turn face down and are shuffled again. Points you’ve already earned stay with you.</p>
     <button class="btn primary" id="ok-shuffle">Shuffle the cards</button><button class="btn ghost" data-close>Keep playing</button>`);
   $('#ok-shuffle').onclick = () => { closeSheet(); setTimeout(() => startLevel(THEMES.indexOf(T), G.stop, true), 230); };
 };
@@ -1400,8 +1448,16 @@ function renderInsights() {
   const bks = [['1–2 days later', bucket(.5, 3)], ['3–6 days later', bucket(3, 7)], ['A week or more', bucket(7, 1e9)]];
   const due = dueReviews(), nextDue = Object.values(S.rev).map(r => r.due).filter(d => d > Date.now()).sort((a, b) => a - b)[0];
   const okAll = reviews.filter(h => h[1]).length;
+  const dueNow = dueReviews();
+  const nextAt = Object.values(S.rev).map(r => r.due).filter(d => d > Date.now()).sort((a, b) => a - b)[0];
   $('#insights-body').innerHTML = `
-    <p class="ins-sub">Patterns from your own play, just for you. This stays on this device and never goes to the leaderboard.</p>
+    <div class="check-banner mem-top">
+      <span class="ins-ico" aria-hidden="true">✦</span>
+      <span><b>Memory check</b><small>${dueNow.length ? `${dueNow.length} stor${dueNow.length > 1 ? 'ies' : 'y'} to remember from earlier` : nextAt ? `All caught up · next in about ${Math.max(1, Math.round((nextAt - Date.now()) / HOUR))} hours` : 'Answer bonus questions to start'}</small></span>
+      ${dueNow.length ? `<button class="go" id="mem-start" aria-label="Start memory check">+${Math.min(5, dueNow.length)}</button>` : ''}
+    </div>
+    ${dueNow.length ? `<button class="btn primary" id="mem-start2">Start memory check · ${Math.min(5, dueNow.length)} at a time</button>` : ''}
+    <p class="ins-sub" style="margin-top:16px">Patterns from your own play, just for you. This stays on this device and never goes to the leaderboard.</p>
     <section class="ins-card">
       <h2>Board memory</h2>
       ${c.length ? `<div class="ins-big"><div><b>${Math.round(avg(recent.map(m => m.score)))}</b><small>recent average</small></div><div><b>${Math.max(...c.map(m => m.score))}</b><small>best</small></div><div><b>${c.length}</b><small>boards counted</small></div></div>
@@ -1418,7 +1474,7 @@ function renderInsights() {
       ${bks.map(([l, b]) => `<div class="mem-row"><span>${l}</span><span class="mbar"><i style="width:${b.n ? b.ok / b.n * 100 : 0}%"></i></span><b>${b.n ? `${b.ok}/${b.n}` : '–'}</b></div>`).join('')}
       <p class="ins-cap">If the longer delays stay high over the weeks, the stories are sticking.</p>`
       : `<p class="ins-empty hand">${Object.keys(S.rev).length ? 'Your first memory check unlocks about 12 hours after you answer a bonus question.' : 'Answer a bonus question to start your story memory.'}</p>`}
-      ${due.length ? `<button class="btn primary" id="ins-check">Memory check · ${due.length} due</button>` : nextDue ? `<p class="ins-cap">Next memory check in about ${Math.max(1, Math.round((nextDue - Date.now()) / HOUR))} hours.</p>` : ''}
+      ${due.length ? '' : nextDue ? `<p class="ins-cap">Next memory check in about ${Math.max(1, Math.round((nextDue - Date.now()) / HOUR))} hours.</p>` : ''}
     </section>
     <details class="ins-how"><summary>How these are scored</summary>
       <p><b>Recall</b> counts the turns where you’d already seen the matching card. Turning it over is a recall; anything else is a lapse.</p>
@@ -1428,6 +1484,7 @@ function renderInsights() {
       <p>These are game measures to help you notice your own patterns. They aren’t a medical or clinical memory test.</p>
     </details>`;
   if ($('#ins-check')) $('#ins-check').onclick = () => memoryCheck(dueReviews().slice(0, 5), () => renderInsights());
+  ['#mem-start', '#mem-start2'].forEach(sel => { if ($(sel)) $(sel).onclick = () => memoryCheck(dueReviews().slice(0, 5), () => { renderInsights(); updateTabs('insights'); }); });
 }
 $('#insights-back').onclick = () => insightsBack ? insightsBack() : (renderProfile(), show('profile'));
 
@@ -1573,8 +1630,24 @@ const hasDest = T2 => S.dests.includes(T2.id);
 const nextTicket = () => TICKETS[Math.min(TICKETS.length - 1, Math.max(0, S.dests.length - 1))];
 const sparesCount = () => Object.values(S.spares).reduce((a, b) => a + (b > 0 ? b : 0), 0);
 const themeOf = k => THEMES.find(t => t.order.includes(k));
-function demandToday() { const d = Math.floor(Date.now() / 864e5); return THEMES[d % THEMES.length]; }
-function valueOf(k) { return Math.round(TIER_VALUE[tierOf(k)] * (themeOf(k) === demandToday() ? 1.5 : 1)); }
+// Collectors change what they want every 2 or 3 hours (alternating), the same for every player.
+const HOUR_MS = 36e5, CYCLE = 5 * HOUR_MS;
+const WANTS = (() => {
+  const list = THEMES.map(t => ({ label: `${t.country} souvenirs`, test: k => themeOf(k) === t }));
+  [...new Set(Object.values(categories))].forEach(c => list.push({ label: `${c} items`, test: k => categories[k] === c }));
+  return list;
+})();
+function demandNow(t = Date.now()) {
+  const c = Math.floor(t / CYCLE), inCycle = t - c * CYCLE, second = inCycle >= 2 * HOUR_MS;
+  const n = c * 2 + (second ? 1 : 0), ends = c * CYCLE + (second ? CYCLE : 2 * HOUR_MS);
+  const pick = m => Math.floor((Math.abs(Math.sin(m * 12.9898) * 43758.5453) % 1) * WANTS.length);
+  let i = pick(n); if (i === pick(n - 1)) i = (i + 1) % WANTS.length;
+  return { ...WANTS[i], ends };
+}
+const isWanted = k => demandNow().test(k);
+function untilText(ms) { const m = Math.max(1, Math.round(ms / 6e4)); return m < 60 ? `${m}m` : `${Math.floor(m / 60)}h ${m % 60 ? (m % 60) + 'm' : ''}`.trim(); }
+function demandToday() { return THEMES[0]; }
+function valueOf(k) { return Math.round(TIER_VALUE[tierOf(k)] * (isWanted(k) ? 1.5 : 1)); }
 function addCoins(n) { S.coins = Math.max(0, Math.round(S.coins + n)); persist(); $$('.coin-val').forEach(e => e.textContent = S.coins); }
 function coinPill(id = '') { return `<button class="score coins" ${id ? `id="${id}"` : ''} data-market aria-label="Souvenir market, ${S.coins} travel coins">${COIN}<span class="coin-val">${S.coins}</span></button>`; }
 
@@ -1585,7 +1658,7 @@ function destTap(i) {
   if (!S.dests.length) {
     sheet(`<div class="sheet-art">${paint(D.hero)}</div><h2>Begin in ${D.country}?</h2><p>Your passport starts here. The other places open up with a flight, paid for with travel coins you earn along the way.</p>
       <button class="btn primary" id="begin-here">Start my journey in ${D.country}</button><button class="btn ghost" data-close>Look around first</button>`);
-    $('#begin-here').onclick = () => { S.dests = [D.id]; S.at = D.id; persist(); closeSheet(); setTimeout(() => openMap(i), 230); };
+    $('#begin-here').onclick = () => { S.dests = [D.id]; S.at = D.id; S.coins = Math.max(S.coins, 15); persist(); closeSheet(); setTimeout(() => openMap(i), 230); };
     return;
   }
   const price = nextTicket(), short = price - S.coins;
@@ -1636,16 +1709,17 @@ function flyTo(D, price) {
 let marketBack = null, auction = null;
 function openMarket(back) { marketBack = back || (() => { renderHome(); show('home'); }); renderMarket(); show('market'); }
 function renderMarket() {
-  const keys = Object.keys(S.spares).filter(k => S.spares[k] > 0 && items[k]).sort((a, b) => valueOf(b) - valueOf(a));
-  const dd = demandToday();
+  const keys = Object.keys(S.spares).filter(k => S.spares[k] > 0 && items[k]).sort((a, b) => (isWanted(b) - isWanted(a)) || valueOf(b) - valueOf(a));
+  const dd = demandNow(), wantedN = keys.filter(isWanted).length;
   $('#market-body').innerHTML = `
     <div class="wallet">${COIN}<b class="coin-val">${S.coins}</b><span>travel coins</span></div>
     ${S.dests.length < THEMES.length ? `<p class="next-ticket">Next ticket: ${nextTicket()} coins${S.coins >= nextTicket() ? ' · you can fly now!' : ` · ${nextTicket() - S.coins} to go`}</p>` : '<p class="next-ticket">Every destination is open. Coins still show your collector skills!</p>'}
-    <div class="demand"><span class="dm-ico" aria-hidden="true">✦</span><span>Collectors want <b>${dd.country}</b> souvenirs today · <b>+50%</b></span></div>
+    <div class="demand"><span class="dm-ico" aria-hidden="true">✦</span><span>Collectors want <b>${dd.label}</b> right now · <b>+50%</b><small class="dm-next">${wantedN ? `You have ${wantedN} they want! · ` : ''}New requests in ${untilText(dd.ends - Date.now())}</small></span></div>
     <h2 class="j-title">Your spares</h2>
-    ${keys.length ? `<ul class="poster-list spares">${keys.map(k => `<li><button data-sell="${k}"><span class="pl-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</span><span class="pl-text"><b lang="${langOf(k)}">${LABEL[k][0]}</b><small>${LABEL[k][1]}</small>${tierTag(k)}</span><span class="sp-meta"><b>×${S.spares[k]}</b><small>~${valueOf(k)}</small></span></button></li>`).join('')}</ul>`
+    ${keys.length ? `<ul class="poster-list spares">${keys.map(k => `<li><button data-sell="${k}"><span class="pl-art tier-art t-${TIERS[tierOf(k)].id}">${paint(k)}</span><span class="pl-text"><b lang="${langOf(k)}">${LABEL[k][0]}</b><small>${LABEL[k][1]}</small>${tierTag(k)}</span><span class="sp-meta"><b>×${S.spares[k]}</b><small>~${valueOf(k)}</small>${isWanted(k) ? '<em class="wanted">Wanted +50%</em>' : ''}</span></button></li>`).join('')}</ul>`
       : `<p class="ins-empty hand">No spares yet. Replay a finished stop or try Free wander: matching something you already own gives you a spare to share.</p>`}`;
   $$('[data-sell]').forEach(b => b.onclick = () => startAuction(b.dataset.sell));
+  clearTimeout(renderMarket.t); renderMarket.t = setTimeout(() => { if (!$('#market').hidden && !auction) renderMarket(); }, Math.min(dd.ends - Date.now() + 1000, 6e4));
   wire();
 }
 function startAuction(k) {
@@ -1890,6 +1964,13 @@ addEventListener('resize', fitBoard);
 // ---------- Boot ----------
 THEMES.forEach(t => { if (new Set(t.order).size !== 36 || t.order.some(k => !items[k] || !LABEL[k])) console.warn('Theme data mismatch', t.country); });
 $$('[data-icon]').forEach(e => e.innerHTML = ICON[e.dataset.icon]);
+$$('.tab').forEach(t => t.onclick = () => {
+  const id = t.dataset.tab;
+  if (id === 'home') { renderHome(); show('home'); }
+  else if (id === 'insights') openInsights(() => { renderHome(); show('home'); });
+  else if (id === 'market') openMarket();
+  else { renderProfile(); show('profile'); }
+});
 renderHome(); show('home');
 initCloud();
 S.seenHelp = true;
